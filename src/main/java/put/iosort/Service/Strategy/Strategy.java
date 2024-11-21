@@ -1,7 +1,10 @@
 package put.iosort.Service.Strategy;
 
-import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
+import put.iosort.Config.Order;
 
-
+@Component
 public interface Strategy {
+
+    int[] sort(int[] array, Order order);
 }
