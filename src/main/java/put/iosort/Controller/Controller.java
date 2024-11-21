@@ -18,7 +18,7 @@ public class Controller {
 
     private final Context context;
 
-    @GetMapping(value = GET + ARRAY + ORDER + STRATEGYTYPE)
+    @GetMapping(value = GET + ARRAY + ORDER + STRATEGY_TYPE)
     public ResponseEntity<Object> getSortedArray(@RequestBody int[] numbers) {
         return ResponseEntity.ok(context.handleContext(numbers));
     }
