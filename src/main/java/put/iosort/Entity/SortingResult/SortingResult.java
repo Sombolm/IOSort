@@ -1,12 +1,12 @@
 package put.iosort.Entity.SortingResult;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.NoArgsConstructor;
 
-@Entity
+@NoArgsConstructor
 @AllArgsConstructor
 public class SortingResult {
 
-    private int[] sortedArray;
-    private long duration;
+    public int[] sortedArray;
+    public long duration;
 }
