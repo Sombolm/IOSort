@@ -8,6 +8,7 @@ import put.iosort.Service.Strategy.Strategy;
 public class CountingSort implements Strategy {
     @Override
     public int[] sort(int[] array, Order order, int iterations) {
-        return new int[0];
+
+        return array;
     }
 }

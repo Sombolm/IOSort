@@ -23,8 +23,6 @@ public class BubbleSort implements Strategy {
                 if (i * j == iterations) {
                     break outerloop;
                 }
-
-
             }
         }
         return array;
