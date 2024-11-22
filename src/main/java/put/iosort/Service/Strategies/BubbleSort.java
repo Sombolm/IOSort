@@ -29,8 +29,4 @@ public class BubbleSort implements Strategy {
         }
         return array;
     }
-
-
-
-    }
 }
