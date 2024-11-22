@@ -9,4 +9,5 @@ public class RestEndpoints {
     public static final String ORDER = "/{order}";
     public static final String STRATEGY_TYPE = "/{strategyType}";
 
+    public static final String ITERATIONS = "/{iterations}";
 }

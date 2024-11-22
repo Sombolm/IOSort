@@ -17,7 +17,7 @@ public class Controller {
 
     private final Context context;
 
-    @GetMapping(value = GET + ARRAY + ORDER + STRATEGY_TYPE)
+    @GetMapping(value = GET + ARRAY + ORDER + STRATEGY_TYPE + ITERATIONS)
     public ResponseEntity<Object> getSortedArray(@RequestBody int[] numbers,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("strategyType") StrategyType strategyType,
