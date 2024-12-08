@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import put.iosort.Entity.Input.InputDTO;
 import put.iosort.Exception.CustomExceptions.InvalidIterationsException;
 import put.iosort.Service.Context;
 import put.iosort.Service.Strategy.StrategyType;
@@ -27,22 +28,21 @@ public class Controller {
 
     private final Context context;
     @GetMapping(value = GET + ARRAY + ORDER + STRATEGY_TYPE + ITERATIONS)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty int @NotNull [] numbers,
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
                                                  @PathVariable("order") Order order,
-                                                 @PathVariable("strategyType") StrategyType strategyType,
                                                  @PathVariable("iterations") int iterations
     ) {
         if (iterations <= -1) {
             throw new InvalidIterationsException(INVALID_ITERATIONS);
         }
-        return ResponseEntity.ok(context.handleContext(numbers, strategyType, order, iterations));
+        return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes() , order, iterations));
     }
 
     @GetMapping(value = GET + ARRAY + ORDER + STRATEGY_TYPE)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty int @NotNull [] numbers,
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("strategyType") StrategyType[] strategyTypes
     ) {
-        return ResponseEntity.ok(context.handleContext(numbers, strategyTypes, order));
+        return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes(), order));
     }
 }

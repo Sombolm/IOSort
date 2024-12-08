@@ -17,17 +17,23 @@ public class Context {
     private final StrategyFactory strategyFactory;
 
 
-    public SortingResult handleContext(int[] numbers, StrategyType strategyType, Order order, int iterations) {
+    public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
+        List<SortingResult> sortingResults = new ArrayList<SortingResult>();
 
-        Strategy strategy = strategyFactory.makeStrategy(strategyType);
+        for (StrategyType strategyType : strategyTypes) {
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
 
+            long start = System.nanoTime();
+            numbers = strategy.sort(numbers, order, iterations);
+            long end = System.nanoTime();
+            long duration = end - start;
 
-        long start = System.nanoTime();
-        int[] sortedArray = strategy.sort(numbers, order, iterations);
-        long end = System.nanoTime();
-        long duration = end - start;
+            SortingResult sortingResult = new SortingResult(numbers, duration);
 
-        return new SortingResult(sortedArray, duration);
+            sortingResults.add(sortingResult);
+        }
+
+        return sortingResults;
     }
 
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order) {
