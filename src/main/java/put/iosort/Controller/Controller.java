@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import put.iosort.Service.Context;
 import put.iosort.Service.Strategy.StrategyType;
 import put.iosort.Config.Order;
@@ -30,8 +31,7 @@ public class Controller {
                                                  @PathVariable("iterations") int iterations
     ) {
         if (iterations <= -1) {
-            return new ResponseEntity<>(
-                    "Iterations must be greater or equal to 0", HttpStatus.BAD_REQUEST);
+            throw new IllegalArgumentException("Iterations must be greater than or equal to 0");
         }
         return ResponseEntity.ok(context.handleContext(numbers, strategyType, order, iterations));
     }
@@ -43,8 +43,5 @@ public class Controller {
     ) {
         return ResponseEntity.ok(context.handleContext(numbers, strategyType, order));
     }
-
-
-
 
 }
