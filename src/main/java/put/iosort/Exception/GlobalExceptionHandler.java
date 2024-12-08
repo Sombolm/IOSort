@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class, IllegalArgumentException.class })
     public ResponseEntity<Object> handlePathVariableMismatch(Exception ex) {
-        String errorMessage = "Invalid path variable or argument: " + ex.getMessage();
+        String errorMessage = INVALID_PATH_VARIABLE + ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
@@ -30,7 +30,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex) {
-        String errorMessage = "Request body validation failed: " + ex.getMessage();
+        String errorMessage = REQUEST_BODY_VALIDATION_FAILED + ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }
