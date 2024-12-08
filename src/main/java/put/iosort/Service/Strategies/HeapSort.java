@@ -27,6 +27,25 @@ public class HeapSort implements Strategy {
         return array;
     }
 
+    @Override
+    public int[] sort(int[] array, Order order) {
+        int n = array.length;
+
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(array, n, i, order);
+        }
+
+        for (int i = n - 1; i > 0; i--) {
+            int temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+
+            heapify(array, i, 0, order);
+        }
+
+        return array;
+    }
+
     private void heapify(int[] array, int n, int i, Order order) {
         int pivot = i;
         int left = 2 * i + 1;

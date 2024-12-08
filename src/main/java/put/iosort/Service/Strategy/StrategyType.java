@@ -6,5 +6,5 @@ public enum StrategyType {
     BUBBLE,
     COUNTING,
     HEAP,
-    SHELL
+    BOGO
 }

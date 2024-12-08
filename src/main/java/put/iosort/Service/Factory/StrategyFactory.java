@@ -14,7 +14,7 @@ public class StrategyFactory {
             case INSERTION -> new InsertionSort();
             case COUNTING -> new CountingSort();
             case HEAP -> new HeapSort();
-            case SHELL -> new ShellSort();
+            case BOGO -> new BogoSort();
         };
     }
 }

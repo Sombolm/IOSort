@@ -1,6 +1,7 @@
 package put.iosort.Controller;
 
 
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,7 @@ public class Controller {
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("strategyType") StrategyType strategyType
     ) {
-        return ResponseEntity.ok(context.handleContext(numbers, strategyType, order, -1));
+        return ResponseEntity.ok(context.handleContext(numbers, strategyType, order));
     }
 
 

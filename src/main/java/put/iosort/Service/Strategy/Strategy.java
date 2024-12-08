@@ -7,4 +7,6 @@ import put.iosort.Config.Order;
 public interface Strategy {
 
     int[] sort(int[] array, Order order, int iterations);
+
+    int[] sort(int[] array, Order order);
 }
