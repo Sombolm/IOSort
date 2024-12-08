@@ -20,8 +20,8 @@ public class HeapSort implements Strategy {
             array[i] = temp;
 
             heapify(array, i, 0, order);
-            iterations--;
-            if (iterations <= 0) return array;
+
+            if (i == iterations) break;
         }
 
         return array;
@@ -50,10 +50,6 @@ public class HeapSort implements Strategy {
     }
 
     private boolean compare(int a, int b, Order order) {
-        if (order == Order.ASC) {
-            return a > b;
-        } else {
-            return a < b;
-        }
+        return order == Order.ASC ? a > b : a < b;
     }
 }

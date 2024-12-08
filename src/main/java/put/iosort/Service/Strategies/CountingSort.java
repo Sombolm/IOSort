@@ -30,6 +30,7 @@ public class CountingSort implements Strategy {
         }
 
         int[] sorted = new int[array.length];
+
         for (int i = array.length - 1; i >= 0; i--) {
             int index = count[array[i] - min] - 1;
             sorted[index] = array[i];
