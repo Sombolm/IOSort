@@ -41,9 +41,8 @@ public class Controller {
     @GetMapping(value = GET + ARRAY + ORDER + STRATEGY_TYPE)
     public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty int @NotNull [] numbers,
                                                  @PathVariable("order") Order order,
-                                                 @PathVariable("strategyType") StrategyType strategyType
+                                                 @PathVariable("strategyType") StrategyType[] strategyTypes
     ) {
-        return ResponseEntity.ok(context.handleContext(numbers, strategyType, order));
+        return ResponseEntity.ok(context.handleContext(numbers, strategyTypes, order));
     }
-
 }

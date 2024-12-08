@@ -8,6 +8,9 @@ import put.iosort.Service.Factory.StrategyFactory;
 import put.iosort.Service.Strategy.Strategy;
 import put.iosort.Service.Strategy.StrategyType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class Context {
@@ -27,16 +30,22 @@ public class Context {
         return new SortingResult(sortedArray, duration);
     }
 
-    public SortingResult handleContext(int[] numbers, StrategyType strategyType, Order order) {
+    public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order) {
+        List<SortingResult> sortingResults = new ArrayList<SortingResult>();
 
-        Strategy strategy = strategyFactory.makeStrategy(strategyType);
+        for (StrategyType strategyType : strategyTypes) {
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
 
+            long start = System.nanoTime();
+            numbers = strategy.sort(numbers, order);
+            long end = System.nanoTime();
+            long duration = end - start;
 
-        long start = System.nanoTime();
-        int[] sortedArray = strategy.sort(numbers, order);
-        long end = System.nanoTime();
-        long duration = end - start;
+            SortingResult sortingResult = new SortingResult(numbers, duration);
 
-        return new SortingResult(sortedArray, duration);
+            sortingResults.add(sortingResult);
+        }
+
+        return sortingResults;
     }
 }
