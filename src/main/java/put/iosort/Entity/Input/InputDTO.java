@@ -1,5 +1,7 @@
 package put.iosort.Entity.Input;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,9 @@ import put.iosort.Service.Strategy.StrategyType;
 @Data
 public class InputDTO {
 
-    int[] numbers;
-    StrategyType[] strategyTypes;
+    @NotEmpty
+    int @NotNull [] numbers;
+    @NotEmpty
+    StrategyType @NotNull[] strategyTypes;
 
 }
