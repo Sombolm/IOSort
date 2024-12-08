@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import put.iosort.Exception.CustomExceptions.InvalidIterationsException;
 
 import static put.iosort.Config.ErrorMessages.*;
 
@@ -14,21 +15,22 @@ import static put.iosort.Config.ErrorMessages.*;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class, IllegalArgumentException.class })
     public ResponseEntity<Object> handlePathVariableMismatch(Exception ex) {
-        String errorMessage = INVALID_PATH_VARIABLE + ex.getMessage();
+        String errorMessage = "Invalid path variable or argument: " + ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Object> handleInvalidIterations(IllegalArgumentException ex) {
-        String errorMessage = INVALID_ITERATIONS;
+    @ExceptionHandler(InvalidIterationsException.class)
+    public ResponseEntity<Object> handleInvalidIterations(InvalidIterationsException ex) {
+        String errorMessage = ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex) {
-        String errorMessage = REQUEST_BODY_VALIDATION_FAILED + ex.getMessage();
+        String errorMessage = "Request body validation failed: " + ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 }
