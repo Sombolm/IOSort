@@ -2,6 +2,7 @@ package put.iosort.Entity.SortingResult;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor

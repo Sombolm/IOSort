@@ -22,7 +22,7 @@ public class Controller {
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("strategyType") StrategyType strategyType,
                                                  @PathVariable("iterations") int iterations
-                                                 ) {
+    ) {
         return ResponseEntity.ok(context.handleContext(numbers, strategyType, order, iterations));
     }
 
