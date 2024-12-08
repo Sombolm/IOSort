@@ -13,8 +13,7 @@ public class BubbleSort implements Strategy {
         outerloop:
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n - 1 - i; j++) {
-                if ((order == Order.ASC && array[j] > array[j + 1]) ||
-                        (order == Order.DESC && array[j] < array[j + 1])) {
+                if (compare(array[j], array[j + 1], order)) {
                     int temp = array[j];
                     array[j] = array[j + 1];
                     array[j + 1] = temp;
@@ -26,5 +25,9 @@ public class BubbleSort implements Strategy {
             }
         }
         return array;
+    }
+
+    private boolean compare(int a, int b, Order order) {
+        return order == Order.ASC ? a > b : a < b;
     }
 }

@@ -8,6 +8,29 @@ import put.iosort.Service.Strategy.Strategy;
 public class SelectionSort implements Strategy {
     @Override
     public int[] sort(int[] array, Order order, int iterations) {
-        return new int[0];
+        int n = array.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (compare(array[j], array[minIndex], order)) {
+                    minIndex = j;
+                }
+            }
+
+            int temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+
+            if (iterations == i) {
+                break;
+            }
+        }
+
+        return array;
+    }
+    private boolean compare(int a, int b, Order order) {
+        return order == Order.ASC ? a > b : a < b;
     }
 }
