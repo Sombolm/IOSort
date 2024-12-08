@@ -27,7 +27,7 @@ import static put.iosort.Config.RestEndpoints.*;
 public class Controller {
 
     private final Context context;
-    @GetMapping(value = GET + ARRAY + ORDER + STRATEGY_TYPE + ITERATIONS)
+    @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
     public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("iterations") int iterations
@@ -38,10 +38,9 @@ public class Controller {
         return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes() , order, iterations));
     }
 
-    @GetMapping(value = GET + ARRAY + ORDER + STRATEGY_TYPE)
+    @GetMapping(value = GET + ARRAY + ORDER)
     public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
-                                                 @PathVariable("order") Order order,
-                                                 @PathVariable("strategyType") StrategyType[] strategyTypes
+                                                 @PathVariable("order") Order order
     ) {
         return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes(), order));
     }
