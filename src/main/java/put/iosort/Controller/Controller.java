@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,8 @@ public class Controller {
                                                  @PathVariable("iterations") int iterations
     ) {
         if (iterations <= -1) {
-            throw new IllegalArgumentException("Iterations must be -1 or a non-negative integer");
+            return new ResponseEntity<>(
+                    "Iterations must be greater or equal to 0", HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok(context.handleContext(numbers, strategyType, order, iterations));
     }
