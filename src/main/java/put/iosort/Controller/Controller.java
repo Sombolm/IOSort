@@ -1,23 +1,17 @@
 package put.iosort.Controller;
 
 
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import put.iosort.Controller.CustomValidator.CustomValidator;
 import put.iosort.Entity.Input.InputDTO;
-import put.iosort.Exception.CustomExceptions.InvalidIterationsException;
 import put.iosort.Service.Context;
-import put.iosort.Service.Strategy.StrategyType;
 import put.iosort.Config.Order;
 
-import static put.iosort.Config.ErrorMessages.INVALID_ITERATIONS;
 import static put.iosort.Config.RestEndpoints.*;
 
 @RestController
@@ -27,14 +21,13 @@ import static put.iosort.Config.RestEndpoints.*;
 public class Controller {
 
     private final Context context;
+    private final CustomValidator validator;
     @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
     public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("iterations") int iterations
     ) {
-        if (iterations <= -1) {
-            throw new InvalidIterationsException(INVALID_ITERATIONS);
-        }
+        validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
         return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes() , order, iterations));
     }
 
@@ -42,6 +35,7 @@ public class Controller {
     public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
                                                  @PathVariable("order") Order order
     ) {
+        validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
         return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes(), order));
     }
 }

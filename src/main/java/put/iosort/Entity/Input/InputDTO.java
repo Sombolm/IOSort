@@ -14,7 +14,7 @@ public class InputDTO {
 
     @NotEmpty
     int @NotNull [] numbers;
-    @NotEmpty
-    StrategyType @NotNull[] strategyTypes;
+
+    StrategyType [] strategyTypes;
 
 }
