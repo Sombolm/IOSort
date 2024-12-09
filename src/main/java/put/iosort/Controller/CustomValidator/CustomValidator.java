@@ -19,7 +19,7 @@ public class CustomValidator {
         if (array.length == 0) {
             throw new IllegalArgumentException(INVALID_ARRAY);
         }
-        if (strategyTypes.length == 0) {
+        if (strategyTypes.length == 0 || strategyTypes.length > 6) {
             throw new IllegalArgumentException(INVALID_STRATEGIES);
         }
     }

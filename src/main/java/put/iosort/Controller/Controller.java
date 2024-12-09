@@ -20,8 +20,10 @@ import static put.iosort.Config.RestEndpoints.*;
 @Validated
 public class Controller {
 
+    //Injectuje (czyli wstrzykuje, dodaje do klasy) obiekty klasy Context oraz CustomValidator
     private final Context context;
     private final CustomValidator validator;
+
     @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
     public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
                                                  @PathVariable("order") Order order,
