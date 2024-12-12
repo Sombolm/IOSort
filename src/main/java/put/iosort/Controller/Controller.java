@@ -1,7 +1,5 @@
 package put.iosort.Controller;
 
-
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +23,7 @@ public class Controller {
     private final CustomValidator validator;
 
     @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("iterations") int iterations
     ) {
@@ -34,7 +32,7 @@ public class Controller {
     }
 
     @GetMapping(value = GET + ARRAY + ORDER)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputDTO input,
                                                  @PathVariable("order") Order order
     ) {
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
