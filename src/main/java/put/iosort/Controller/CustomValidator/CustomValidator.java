@@ -10,7 +10,6 @@ import static put.iosort.Config.ErrorMessages.*;
 
 @Service
 @NoArgsConstructor
-@AllArgsConstructor
 public class CustomValidator {
     public void validateEndpointInput(int iterations, int[] array, StrategyType [] strategyTypes) {
         if (iterations < 0) {
