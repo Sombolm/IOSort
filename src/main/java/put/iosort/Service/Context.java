@@ -41,7 +41,7 @@ import java.util.List;
  */
 
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Context {
 
     /**
@@ -49,7 +49,13 @@ public class Context {
      */
     private final StrategyFactory strategyFactory;
 
-    /**
+    public Context(StrategyFactory strategyFactory){
+        this.strategyFactory = strategyFactory;
+    }
+
+    //----------------FOR INT---------------------
+  
+     /**
      * Handles the sorting of the given array of numbers using the specified strategy types, order, and iterations.
      * <p>
      * Each strategy is executed sequentially, and the sorted results are measured for performance
@@ -63,8 +69,7 @@ public class Context {
      * @param iterations    the number of iterations for the sorting algorithm to perform
      * @return a list of {@link SortingResult} objects, each containing the sorted array and the duration of the sorting
      */
-
-    //----------------FOR INT---------------------
+  
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResult> sortingResults = new ArrayList<>();
 

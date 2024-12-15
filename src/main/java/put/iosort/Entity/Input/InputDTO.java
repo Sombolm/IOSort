@@ -14,14 +14,25 @@ import put.iosort.Service.Strategy.StrategyType;
  * @since 2024-12-15
  */
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+//@AllArgsConstructor
+//@Data
 public class InputDTO {
 
-    @NotEmpty
-    int @NotNull [] numbers;
+    //@NotEmpty
+    public int [] numbers;
+    public StrategyType [] strategyTypes;
 
-    StrategyType [] strategyTypes;
+    public InputDTO(int [] numbers, StrategyType [] strategyTypes){
+        this.numbers = numbers;
+        this.strategyTypes = strategyTypes;
+    }
+
+    public int[] getNumbers() {
+        return numbers;
+    }
+
+    public StrategyType[] getStrategyTypes() {
+        return strategyTypes;
+    }
 
 }

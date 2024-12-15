@@ -11,10 +11,15 @@ import lombok.RequiredArgsConstructor;
  * @since 2024-12-15
  */
 
-@NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
+//@Data
 public class SortingResult {
 
     public int[] sortedArray;
     public long duration;
+
+    public SortingResult(int[] sortedArray, long duration) {
+        this.sortedArray = sortedArray;
+        this.duration = duration;
+    }
 }
