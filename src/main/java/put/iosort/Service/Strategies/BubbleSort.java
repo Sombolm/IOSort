@@ -31,7 +31,7 @@ public class BubbleSort implements Strategy {
     public int[] sort(int[] array, Order order) {
         int n = array.length;
 
-        outerloop:
+        //outerloop:
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n - 1 - i; j++) {
                 if (compare(array[j], array[j + 1], order)) {

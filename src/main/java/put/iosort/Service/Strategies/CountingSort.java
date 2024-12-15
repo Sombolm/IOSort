@@ -8,73 +8,77 @@ import put.iosort.Service.Strategy.Strategy;
 public class CountingSort implements Strategy {
     @Override
     public int[] sort(int[] array, Order order, int iterations) {
-        int max = array[0];
-        int min = array[0];
+        int N = array.length;
+        int M = 0;
 
-        for (int num : array) {
-            if (num > max) max = num;
-            if (num < min) min = num;
+        for (int j : array) {
+            M = Math.max(M, j);
         }
 
-        int range = max - min + 1;
-        int[] count = new int[range];
+        int[] countArray = new int[M + 1];
 
-        if (order == Order.ASC) {
-            for (int i = 1; i < range; i++) {
-                count[i] += count[i - 1];
+        for (int j : array) {
+            countArray[j]++;
+        }
+
+        if(order == Order.ASC) {
+            for (int i = 1; i <= M; i++) {
+                countArray[i] += countArray[i - 1];
             }
-        } else if (order == Order.DESC) {
-            for (int i = range - 2; i >= 0; i--) {
-                count[i] += count[i + 1];
+        }
+        else if (order == Order.DESC) {
+            for (int i = M - 1; i >= 0; i--) {
+                countArray[i] += countArray[i + 1];
             }
         }
 
-        int[] sorted = new int[array.length];
+        int[] outputArray = new int[N];
 
-        for (int i = array.length - 1; i >= 0; i--) {
-            int index = count[array[i] - min] - 1;
-            sorted[index] = array[i];
-            count[array[i] - min]--;
+        for (int i = N - 1; i >= 0; i--) {
+            outputArray[countArray[array[i]] - 1] = array[i];
+            countArray[array[i]]--;
 
             if(i == iterations) {
                 break;
             }
         }
 
-        return sorted;
+        return outputArray;
     }
 
     @Override
     public int[] sort(int[] array, Order order) {
-        int max = array[0];
-        int min = array[0];
+        int N = array.length;
+        int M = 0;
 
-        for (int num : array) {
-            if (num > max) max = num;
-            if (num < min) min = num;
+        for (int j : array) {
+            M = Math.max(M, j);
         }
 
-        int range = max - min + 1;
-        int[] count = new int[range];
+        int[] countArray = new int[M + 1];
 
-        if (order == Order.ASC) {
-            for (int i = 1; i < range; i++) {
-                count[i] += count[i - 1];
-            }
-        } else if (order == Order.DESC) {
-            for (int i = range - 2; i >= 0; i--) {
-                count[i] += count[i + 1];
+        for (int j : array) {
+            countArray[j]++;
+        }
+
+        if(order == Order.ASC) {
+            for (int i = 1; i <= M; i++) {
+                countArray[i] += countArray[i - 1];
             }
         }
-
-        int[] sorted = new int[array.length];
-
-        for (int i = array.length - 1; i >= 0; i--) {
-            int index = count[array[i] - min] - 1;
-            sorted[index] = array[i];
-            count[array[i] - min]--;
+        else if (order == Order.DESC) {
+            for (int i = M - 1; i >= 0; i--) {
+                countArray[i] += countArray[i + 1];
+            }
         }
 
-        return sorted;
+        int[] outputArray = new int[N];
+
+        for (int i = N - 1; i >= 0; i--) {
+            outputArray[countArray[array[i]] - 1] = array[i];
+            countArray[array[i]]--;
+        }
+
+        return outputArray;
     }
 }

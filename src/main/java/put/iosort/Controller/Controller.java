@@ -1,7 +1,5 @@
 package put.iosort.Controller;
 
-
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +55,7 @@ import static put.iosort.Config.RestEndpoints.*;
 @Validated
 public class Controller {
 
+    //Injectuje (czyli wstrzykuje, dodaje do klasy) obiekty klasy Context oraz CustomValidator
     private final Context context;
     private final CustomValidator validator;
 
@@ -69,8 +68,9 @@ public class Controller {
      * @return a {@link ResponseEntity} containing the sorted array and performance metrics.
      * @throws IllegalArgumentException if the input array is empty, strategies are not specified, or iterations are invalid.
      */
+
     @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("iterations") int iterations
     ) {
@@ -87,7 +87,7 @@ public class Controller {
      * @throws IllegalArgumentException if the input array is empty or strategies are not specified.
      */
     @GetMapping(value = GET + ARRAY + ORDER)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputDTO input,
                                                  @PathVariable("order") Order order
     ) {
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
