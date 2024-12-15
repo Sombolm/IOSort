@@ -6,6 +6,7 @@ import put.iosort.Service.Strategy.Strategy;
 
 import java.util.Random;
 
+
 @Service
 public class BogoSort implements Strategy {
 

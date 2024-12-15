@@ -53,6 +53,6 @@ public class SelectionSort implements Strategy {
     }
 
     private boolean compare(int a, int b, Order order) {
-        return order == Order.ASC ? a > b : a < b;
+        return order == Order.ASC ? a < b : a > b;
     }
 }

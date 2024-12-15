@@ -1,6 +1,5 @@
 package put.iosort.Controller.CustomValidator;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import put.iosort.Service.Strategy.StrategyType;
@@ -10,7 +9,6 @@ import static put.iosort.Config.ErrorMessages.*;
 
 @Service
 @NoArgsConstructor
-@AllArgsConstructor
 public class CustomValidator {
     public void validateEndpointInput(int iterations, int[] array, StrategyType [] strategyTypes) {
         if (iterations < 0) {
