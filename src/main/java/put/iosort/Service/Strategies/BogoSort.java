@@ -52,6 +52,26 @@ public class BogoSort implements Strategy {
         return array;
     }
 
+    @Override
+    public int[] sort(int[] array, Order order) {
+        Random random = new Random();
+
+        while (true) {
+            if (isSorted(array, order)) {
+                break;
+            }
+
+            for (int i = 0; i < array.length; i++) {
+                int randomIndex = random.nextInt(array.length);
+                int temp = array[i];
+                array[i] = array[randomIndex];
+                array[randomIndex] = temp;
+            }
+
+        }
+        return array;
+    }
+
     /**
      * Checks if the given array is sorted in the specified order.
      *
