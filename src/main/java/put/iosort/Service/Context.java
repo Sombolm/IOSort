@@ -39,14 +39,14 @@ import java.util.List;
  */
 
 @Service
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Context {
 
-    /**
-     * Factory for creating sorting strategies.
-     */
     private final StrategyFactory strategyFactory;
 
+    public Context(StrategyFactory strategyFactory){
+        this.strategyFactory = strategyFactory;
+    }
     /**
      * Handles the sorting of the given array of numbers using the specified strategy types, order, and iterations.
      * <p>

@@ -12,6 +12,7 @@ import put.iosort.Entity.Input.InputDTO;
 import put.iosort.Service.Context;
 import put.iosort.Config.Order;
 
+//@AllArgsConstructor
 import static put.iosort.Config.RestEndpoints.*;
 
 /**
@@ -53,12 +54,18 @@ import static put.iosort.Config.RestEndpoints.*;
 
 @RestController
 @RequestMapping(BASE)
-@AllArgsConstructor
 @Validated
+//@AllArgsConstructor
+//NotEmpty i NotNull na inputDTO
 public class Controller {
 
     private final Context context;
     private final CustomValidator validator;
+
+    public Controller(Context context, CustomValidator validator){
+        this.context = context;
+        this.validator = validator;
+    }
 
     /**
      * Handles HTTP GET requests for sorting an array with a specified order and a limited number of iterations.
@@ -70,7 +77,7 @@ public class Controller {
      * @throws IllegalArgumentException if the input array is empty, strategies are not specified, or iterations are invalid.
      */
     @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody  InputDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("iterations") int iterations
     ) {
@@ -87,7 +94,7 @@ public class Controller {
      * @throws IllegalArgumentException if the input array is empty or strategies are not specified.
      */
     @GetMapping(value = GET + ARRAY + ORDER)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody InputDTO input,
                                                  @PathVariable("order") Order order
     ) {
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());

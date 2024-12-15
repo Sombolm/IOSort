@@ -37,8 +37,11 @@ import static put.iosort.Config.ErrorMessages.*;
  */
 
 @Service
-@NoArgsConstructor
+//@NoArgsConstructor
 public class CustomValidator {
+
+    public CustomValidator(){}
+
     public void validateEndpointInput(int iterations, int[] array, StrategyType [] strategyTypes) {
         if (iterations < 0) {
             throw new IllegalArgumentException(INVALID_ITERATIONS);
