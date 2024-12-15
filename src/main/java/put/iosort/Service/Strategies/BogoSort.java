@@ -52,6 +52,15 @@ public class BogoSort implements Strategy {
         return array;
     }
 
+    /**
+     * Sorts the given array using the Bogo Sort algorithm with no iteration limit.
+     * This method may run indefinitely if the input array is large or poorly shuffled.
+     *
+     * @param array The array of integers to be sorted.
+     * @param order The desired sorting order (ascending or descending).
+     *              {@code Order.ASC} for ascending order, {@code Order.DESC} for descending order.
+     * @return The sorted array.
+     */
     @Override
     public int[] sort(int[] array, Order order) {
         Random random = new Random();

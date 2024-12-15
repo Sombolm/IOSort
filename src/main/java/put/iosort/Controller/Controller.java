@@ -98,6 +98,14 @@ public class Controller {
         return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes() , order, iterations));
     }
 
+    /**
+     * Handles HTTP GET requests for sorting an array with a specified order without a limit on iterations.
+     *
+     * @param input the {@link InputDTO} containing the array to be sorted and sorting strategies.
+     * @param order the {@link Order} specifying whether the sorting should be ascending or descending.
+     * @return a {@link ResponseEntity} containing the sorted array and performance metrics.
+     * @throws IllegalArgumentException if the input array is empty or strategies are not specified.
+     */
     @GetMapping(value = GET + ARRAY + ORDER)
     public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputDTO input,
                                                  @PathVariable("order") Order order
