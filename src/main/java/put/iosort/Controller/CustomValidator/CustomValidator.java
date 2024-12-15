@@ -10,7 +10,7 @@ import static put.iosort.Config.ErrorMessages.*;
 @Service
 @NoArgsConstructor
 public class CustomValidator {
-    public void validateEndpointInput(int iterations, int[] array, StrategyType [] strategyTypes) {
+    public void validateEndpointInput(int iterations, float[] array, StrategyType [] strategyTypes) {
         if (iterations < 0) {
             throw new IllegalArgumentException(INVALID_ITERATIONS);
         }
@@ -22,7 +22,7 @@ public class CustomValidator {
         }
     }
 
-    public void validateEndpointInput(int[] array, StrategyType [] strategyTypes) {
+    public void validateEndpointInput(float[] array, StrategyType [] strategyTypes) {
         if (array.length == 0) {
             throw new IllegalArgumentException(INVALID_ARRAY);
         }

@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import put.iosort.Controller.CustomValidator.CustomValidator;
 import put.iosort.Entity.Input.InputDTO;
+import put.iosort.Entity.Input.InputFloatDTO;
 import put.iosort.Service.Context;
 import put.iosort.Config.Order;
 
@@ -23,7 +24,7 @@ public class Controller {
     private final CustomValidator validator;
 
     @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputFloatDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("iterations") int iterations
     ) {
@@ -32,7 +33,7 @@ public class Controller {
     }
 
     @GetMapping(value = GET + ARRAY + ORDER)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputFloatDTO input,
                                                  @PathVariable("order") Order order
     ) {
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());

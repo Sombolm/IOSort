@@ -6,6 +6,8 @@ import put.iosort.Service.Strategy.Strategy;
 
 @Service
 public class BubbleSort implements Strategy {
+
+    //-------------------FOR INT------------------
     @Override
     public int[] sort(int[] array, Order order, int iterations) {
         int n = array.length;
@@ -31,7 +33,6 @@ public class BubbleSort implements Strategy {
     public int[] sort(int[] array, Order order) {
         int n = array.length;
 
-        //outerloop:
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n - 1 - i; j++) {
                 if (compare(array[j], array[j + 1], order)) {
@@ -45,8 +46,94 @@ public class BubbleSort implements Strategy {
         return array;
     }
 
+    private boolean compare(int a, int b, Order order) {return order == Order.ASC ? a > b : a < b;}
 
-    private boolean compare(int a, int b, Order order) {
-        return order == Order.ASC ? a > b : a < b;
+    //----------------------FOR FLOAT-----------------------
+    @Override
+    public float[] sort(float[] array, Order order, int iterations) {
+        int n = array.length;
+
+        outerloop:
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (compare(array[j], array[j + 1], order)) {
+                    float temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+
+                if (i * j == iterations) {
+                    break outerloop;
+                }
+            }
+        }
+        return array;
     }
+
+    @Override
+    public float[] sort(float[] array, Order order) {
+        int n = array.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (compare(array[j], array[j + 1], order)) {
+                    float temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+
+            }
+        }
+        return array;
+    }
+
+    private boolean compare(float a, float b, Order order) {return order == Order.ASC ? a > b : a < b;}
+
+    //----------------------FOR STRING-----------------------
+    @Override
+    public String[] sort(String[] array, Order order, int iterations) {
+        int n = array.length;
+
+        outerloop:
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (compare(array[j], array[j + 1], order)) {
+                    String temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+
+                if (i * j == iterations) {
+                    break outerloop;
+                }
+            }
+        }
+        return array;
+    }
+
+    @Override
+    public String[] sort(String[] array, Order order) {
+        int n = array.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                if (compare(array[j], array[j + 1], order)) {
+                    String temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+
+            }
+        }
+        return array;
+    }
+
+    private boolean compare(String a, String b, Order order) {
+        return order == Order.ASC ? a.compareTo(b) > 0 : a.compareTo(b) < 0;
+    }
+
 }
+
+
+
+
