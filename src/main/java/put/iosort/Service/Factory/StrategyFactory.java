@@ -37,6 +37,7 @@ import put.iosort.Service.Strategy.StrategyType;
 @Component
 //@NoArgsConstructor
 public class StrategyFactory {
+
     public Strategy makeStrategy(StrategyType strategyType) {
         return switch (strategyType) {
             case SELECTION -> new SelectionSort();

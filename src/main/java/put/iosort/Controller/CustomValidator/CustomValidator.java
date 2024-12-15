@@ -1,6 +1,5 @@
 package put.iosort.Controller.CustomValidator;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import put.iosort.Service.Strategy.StrategyType;
@@ -49,7 +48,7 @@ public class CustomValidator {
         if (array.length == 0) {
             throw new IllegalArgumentException(INVALID_ARRAY);
         }
-        if (strategyTypes.length == 0) {
+        if (strategyTypes.length == 0 || strategyTypes.length > 6) {
             throw new IllegalArgumentException(INVALID_STRATEGIES);
         }
     }
