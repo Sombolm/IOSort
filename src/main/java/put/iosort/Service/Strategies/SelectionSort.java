@@ -6,6 +6,8 @@ import put.iosort.Service.Strategy.Strategy;
 
 @Service
 public class SelectionSort implements Strategy {
+
+    //-------FOR INT---------
     @Override
     public int[] sort(int[] array, Order order, int iterations) {
         int n = array.length;
@@ -54,5 +56,107 @@ public class SelectionSort implements Strategy {
 
     private boolean compare(int a, int b, Order order) {
         return order == Order.ASC ? a < b : a > b;
+    }
+
+    //-------FOR FLOAT---------
+    @Override
+    public float[] sort(float[] array, Order order, int iterations) {
+        int n = array.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (compare(array[j], array[minIndex], order)) {
+                    minIndex = j;
+                }
+            }
+
+            float temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+
+            if (i == iterations) {
+                break;
+            }
+        }
+
+        return array;
+    }
+
+    @Override
+    public float[] sort(float[] array, Order order) {
+        int n = array.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (compare(array[j], array[minIndex], order)) {
+                    minIndex = j;
+                }
+            }
+
+            float temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+        }
+
+        return array;
+    }
+
+    private boolean compare(float a, float b, Order order) {
+        return order == Order.ASC ? a < b : a > b;
+    }
+
+    //-------FOR STRING---------
+    @Override
+    public String[] sort(String[] array, Order order, int iterations) {
+        int n = array.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (compare(array[j], array[minIndex], order)) {
+                    minIndex = j;
+                }
+            }
+
+            String temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+
+            if (i == iterations) {
+                break;
+            }
+        }
+
+        return array;
+    }
+
+    @Override
+    public String[] sort(String[] array, Order order) {
+        int n = array.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (compare(array[j], array[minIndex], order)) {
+                    minIndex = j;
+                }
+            }
+
+            String temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+        }
+
+        return array;
+    }
+
+    private boolean compare(String a, String b, Order order) {
+        return order == Order.ASC ? a.compareTo(b) < 0 : a.compareTo(b) > 0;
     }
 }

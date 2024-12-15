@@ -7,6 +7,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import put.iosort.Controller.CustomValidator.CustomValidator;
 import put.iosort.Entity.Input.InputDTO;
+import put.iosort.Entity.Input.InputFloatDTO;
+import put.iosort.Entity.Input.InputStringDTO;
 import put.iosort.Service.Context;
 import put.iosort.Config.Order;
 
@@ -85,6 +87,24 @@ public class Controller {
         return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes() , order, iterations));
     }
 
+    @GetMapping(value = GET + ARRAY + FLOAT + ORDER + ITERATIONS)
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputFloatDTO input,
+                                                 @PathVariable("order") Order order,
+                                                 @PathVariable("iterations") int iterations
+    ) {
+        validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
+        return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes() , order, iterations));
+    }
+
+    @GetMapping(value = GET + ARRAY + STRING + ORDER + ITERATIONS)
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputStringDTO input,
+                                                 @PathVariable("order") Order order,
+                                                 @PathVariable("iterations") int iterations
+    ) {
+        validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
+        return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes() , order, iterations));
+    }
+
     /**
      * Handles HTTP GET requests for sorting an array with a specified order without a limit on iterations.
      *
@@ -95,6 +115,22 @@ public class Controller {
      */
     @GetMapping(value = GET + ARRAY + ORDER)
     public ResponseEntity<Object> getSortedArray(@RequestBody InputDTO input,
+                                                 @PathVariable("order") Order order
+    ) {
+        validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
+        return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes(), order));
+    }
+
+    @GetMapping(value = GET + ARRAY + FLOAT + ORDER)
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputFloatDTO input,
+                                                 @PathVariable("order") Order order
+    ) {
+        validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
+        return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes(), order));
+    }
+
+    @GetMapping(value = GET + ARRAY + STRING + ORDER)
+    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputStringDTO input,
                                                  @PathVariable("order") Order order
     ) {
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
