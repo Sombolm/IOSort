@@ -7,14 +7,41 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import put.iosort.Service.Strategy.StrategyType;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+/**
+ * Input structure for strings.
+ * @author caprimol
+ * @version 1.0
+ * @since 2024-12-15
+ */
+
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Data
+//public class InputStringDTO {
+//
+//    @NotEmpty
+//    String @NotNull [] numbers;
+//
+//    StrategyType [] strategyTypes;
+//
+//}
 public class InputStringDTO {
 
-    @NotEmpty
-    String @NotNull [] numbers;
+    //@NotEmpty
+    public String [] numbers;
+    public StrategyType [] strategyTypes;
 
-    StrategyType [] strategyTypes;
+    public InputStringDTO(String [] numbers, StrategyType [] strategyTypes){
+        this.numbers = numbers;
+        this.strategyTypes = strategyTypes;
+    }
+
+    public String[] getNumbers() {
+        return numbers;
+    }
+
+    public StrategyType[] getStrategyTypes() {
+        return strategyTypes;
+    }
 
 }

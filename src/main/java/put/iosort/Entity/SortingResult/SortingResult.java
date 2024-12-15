@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Output structure.
+ * Output structure for integers.
  * @author caprimol
  * @version 1.0
  * @since 2024-12-15

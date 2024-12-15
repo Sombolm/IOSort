@@ -7,14 +7,41 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import put.iosort.Service.Strategy.StrategyType;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Data
+/**
+ * Input structure for floats.
+ * @author caprimol
+ * @version 1.0
+ * @since 2024-12-15
+ */
+
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Data
+//public class InputFloatDTO {
+//
+//    @NotEmpty
+//    float @NotNull [] numbers;
+//
+//    StrategyType [] strategyTypes;
+//
+//}
 public class InputFloatDTO {
 
-    @NotEmpty
-    float @NotNull [] numbers;
+    //@NotEmpty
+    public float [] numbers;
+    public StrategyType [] strategyTypes;
 
-    StrategyType [] strategyTypes;
+    public InputFloatDTO(float [] numbers, StrategyType [] strategyTypes){
+        this.numbers = numbers;
+        this.strategyTypes = strategyTypes;
+    }
+
+    public float[] getNumbers() {
+        return numbers;
+    }
+
+    public StrategyType[] getStrategyTypes() {
+        return strategyTypes;
+    }
 
 }

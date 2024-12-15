@@ -33,8 +33,30 @@ import static put.iosort.Config.RestEndpoints.*;
  *
  * <p>Methods:</p>
  * <ul>
- *     <li>{@link #getSortedArray(InputDTO, Order, int)}: Sorts an array with specified order and iterations.</li>
- *     <li>{@link #getSortedArray(InputDTO, Order)}: Sorts an array with specified order.</li>
+ *      <li>{@link #getSortedArray(InputDTO, Order, int)}:
+ *           Sorts an array (of integers) with a specified order and a maximum number of iterations.
+ *           Mapped to: {@code GET /IOS/api/get/array/{order}/{iterations}}
+ *       </li>
+ *       <li>{@link #getSortedArray(InputFloatDTO, Order, int)}:
+ *           Sorts an array (of floats) with a specified order and a maximum number of iterations.
+ *           Mapped to: {@code GET /IOS/api/get/array/float/{order}/{iterations}}
+ *       </li>
+ *       <li>{@link #getSortedArray(InputStringDTO, Order, int)}:
+ *           Sorts an array (of strings) with a specified order and a maximum number of iterations.
+ *           Mapped to: {@code GET /IOS/api/get/array/string/{order}/{iterations}}
+ *       </li>
+ *       <li>{@link #getSortedArray(InputDTO, Order)}:
+ *           Sorts an array (of integers) with a specified order without a limit on iterations.
+ *           Mapped to: {@code GET /IOS/api/get/array/{order}}
+ *       </li>
+ *       <li>{@link #getSortedArray(InputFloatDTO, Order)}:
+ *           Sorts an array (of floats) with a specified order without a limit on iterations.
+ *           Mapped to: {@code GET /IOS/api/get/array/float/{order}}
+ *       </li>
+ *       <li>{@link #getSortedArray(InputStringDTO, Order)}:
+ *           Sorts an array (of strings) with a specified order without a limit on iterations.
+ *           Mapped to: {@code GET /IOS/api/get/array/string/{order}}
+ *       </li>
  * </ul>
  *
  * <p>Validation:</p>
@@ -88,7 +110,7 @@ public class Controller {
     }
 
     @GetMapping(value = GET + ARRAY + FLOAT + ORDER + ITERATIONS)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputFloatDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody InputFloatDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("iterations") int iterations
     ) {
@@ -97,7 +119,7 @@ public class Controller {
     }
 
     @GetMapping(value = GET + ARRAY + STRING + ORDER + ITERATIONS)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputStringDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody InputStringDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("iterations") int iterations
     ) {
@@ -122,7 +144,7 @@ public class Controller {
     }
 
     @GetMapping(value = GET + ARRAY + FLOAT + ORDER)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputFloatDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody InputFloatDTO input,
                                                  @PathVariable("order") Order order
     ) {
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
@@ -130,7 +152,7 @@ public class Controller {
     }
 
     @GetMapping(value = GET + ARRAY + STRING + ORDER)
-    public ResponseEntity<Object> getSortedArray(@RequestBody @NotNull InputStringDTO input,
+    public ResponseEntity<Object> getSortedArray(@RequestBody InputStringDTO input,
                                                  @PathVariable("order") Order order
     ) {
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import put.iosort.Service.Strategy.StrategyType;
 
 /**
- * Input structure.
+ * Input structure for integers.
  * @author caprimol
  * @version 1.0
  * @since 2024-12-15
