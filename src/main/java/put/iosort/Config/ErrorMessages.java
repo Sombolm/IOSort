@@ -1,5 +1,11 @@
 package put.iosort.Config;
 
+/**
+ * Error messages for exceptions.
+ * @author caprimol
+ * @version 1.0
+ * @since 2024-12-15
+ */
 public class ErrorMessages {
 
     public static final String INVALID_PATH_VARIABLE = "Invalid path variable or argument: ";

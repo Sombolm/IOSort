@@ -14,6 +14,43 @@ import put.iosort.Config.Order;
 
 import static put.iosort.Config.RestEndpoints.*;
 
+/**
+ * The {@code Controller} class is a REST controller that handles API requests for sorting operations.
+ * It provides endpoints for sorting arrays based on specified strategies, order, and iterations.
+ *
+ * <p>Purpose: Acts as the entry point for client requests, performing input validation and delegating tasks to the service layer.</p>
+ *
+ * <p>Endpoints:</p>
+ * <ul>
+ *     <li>{@code GET /IOS/api/get/array/{order}/{iterations}}:
+ *         Handles requests to sort an array with a specific order and a number of iterations.
+ *     </li>
+ *     <li>{@code GET /IOS/api/get/array/{order}}:
+ *         Handles requests to sort an array with a specific order without specifying iterations.
+ *     </li>
+ * </ul>
+ *
+ * <p>Methods:</p>
+ * <ul>
+ *     <li>{@link #getSortedArray(InputDTO, Order, int)}: Sorts an array with specified order and iterations.</li>
+ *     <li>{@link #getSortedArray(InputDTO, Order)}: Sorts an array with specified order.</li>
+ * </ul>
+ *
+ * <p>Validation:</p>
+ * <ul>
+ *     <li>Input validation is performed using {@link CustomValidator} before delegating tasks to {@link Context}.
+ * </ul>
+ *
+ * <p>Returns:</p>
+ * <ul>
+ *     <li>{@link ResponseEntity}: Encapsulates the result of the sorting operation.</li>
+ * </ul>
+ *
+ * @author caprimol
+ * @version 1.0
+ * @since 2024-12-15
+ */
+
 @RestController
 @RequestMapping(BASE)
 @AllArgsConstructor
@@ -22,6 +59,16 @@ public class Controller {
 
     private final Context context;
     private final CustomValidator validator;
+
+    /**
+     * Handles HTTP GET requests for sorting an array with a specified order and a limited number of iterations.
+     *
+     * @param input     the {@link InputDTO} containing the array to be sorted and sorting strategies.
+     * @param order     the {@link Order} specifying whether the sorting should be ascending or descending.
+     * @param iterations the maximum number of iterations allowed for the sorting process.
+     * @return a {@link ResponseEntity} containing the sorted array and performance metrics.
+     * @throws IllegalArgumentException if the input array is empty, strategies are not specified, or iterations are invalid.
+     */
     @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
     public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
                                                  @PathVariable("order") Order order,
@@ -31,6 +78,14 @@ public class Controller {
         return ResponseEntity.ok(context.handleContext(input.getNumbers(),input.getStrategyTypes() , order, iterations));
     }
 
+    /**
+     * Handles HTTP GET requests for sorting an array with a specified order without a limit on iterations.
+     *
+     * @param input the {@link InputDTO} containing the array to be sorted and sorting strategies.
+     * @param order the {@link Order} specifying whether the sorting should be ascending or descending.
+     * @return a {@link ResponseEntity} containing the sorted array and performance metrics.
+     * @throws IllegalArgumentException if the input array is empty or strategies are not specified.
+     */
     @GetMapping(value = GET + ARRAY + ORDER)
     public ResponseEntity<Object> getSortedArray(@RequestBody @NotEmpty @NotNull InputDTO input,
                                                  @PathVariable("order") Order order

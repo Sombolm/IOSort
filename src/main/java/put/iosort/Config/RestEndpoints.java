@@ -1,5 +1,12 @@
 package put.iosort.Config;
 
+/**
+ * Paths to endpoints.
+ * @author caprimol
+ * @version 1.0
+ * @since 2024-12-15
+ */
+
 public class RestEndpoints {
 
     public static final String BASE = "/IOS/api";
