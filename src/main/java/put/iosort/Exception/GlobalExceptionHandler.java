@@ -1,6 +1,8 @@
 package put.iosort.Exception;
 
 import jakarta.validation.ConstraintViolationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -42,21 +44,26 @@ import static put.iosort.Config.ErrorMessages.*;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    // Logger instance
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class, IllegalArgumentException.class })
     public ResponseEntity<Object> handlePathVariableMismatch(Exception ex) {
+        logger.error("Handling exception: {} with message: {}", ex.getClass().getSimpleName(), ex.getMessage());
         String errorMessage = INVALID_PATH_VARIABLE + ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidIterationsException.class)
     public ResponseEntity<Object> handleInvalidIterations(InvalidIterationsException ex) {
+        logger.error("Handling exception: {} with message: {}", ex.getClass().getSimpleName(), ex.getMessage());
         String errorMessage = ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex) {
+        logger.error("Handling exception: {} with message: {}", ex.getClass().getSimpleName(), ex.getMessage());
         String errorMessage = REQUEST_BODY_VALIDATION_FAILED + ex.getMessage();
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }

@@ -1,5 +1,7 @@
 package put.iosort.Service.Factory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import put.iosort.Service.Strategies.*;
 import put.iosort.Service.Strategy.Strategy;
@@ -35,17 +37,40 @@ import put.iosort.Service.Strategy.StrategyType;
  */
 
 @Component
-//@NoArgsConstructor
 public class StrategyFactory {
 
+    // Logger for this class
+    private static final Logger logger = LoggerFactory.getLogger(StrategyFactory.class);
+
     public Strategy makeStrategy(StrategyType strategyType) {
+        // Log the strategy type that is being created
+        logger.info("Creating strategy for type: {}", strategyType);
+
         return switch (strategyType) {
-            case SELECTION -> new SelectionSort();
-            case BUBBLE -> new BubbleSort();
-            case INSERTION -> new InsertionSort();
-            case COUNTING -> new CountingSort();
-            case HEAP -> new HeapSort();
-            case BOGO -> new BogoSort();
+            case SELECTION -> {
+                logger.debug("Using SelectionSort strategy");
+                yield new SelectionSort();
+            }
+            case BUBBLE -> {
+                logger.debug("Using BubbleSort strategy");
+                yield new BubbleSort();
+            }
+            case INSERTION -> {
+                logger.debug("Using InsertionSort strategy");
+                yield new InsertionSort();
+            }
+            case COUNTING -> {
+                logger.debug("Using CountingSort strategy");
+                yield new CountingSort();
+            }
+            case HEAP -> {
+                logger.debug("Using HeapSort strategy");
+                yield new HeapSort();
+            }
+            case BOGO -> {
+                logger.debug("Using BogoSort strategy");
+                yield new BogoSort();
+            }
         };
     }
 }

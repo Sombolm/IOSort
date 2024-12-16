@@ -1,11 +1,12 @@
 package put.iosort.Service.Strategies;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import put.iosort.Config.Order;
 import put.iosort.Service.Strategy.Strategy;
 
 import java.util.Random;
-
 
 /**
  * The {@code BogoSort} class implements the Bogo Sort algorithm as a sorting strategy.
@@ -17,7 +18,10 @@ import java.util.Random;
 @Service
 public class BogoSort implements Strategy {
 
-    // --------------------FOR INT-----------------------
+    // Logger for this class
+    private static final Logger logger = LoggerFactory.getLogger(BogoSort.class);
+
+    //--------------------FOR INT-----------------------
     /**
      * Sorts the given array using the Bogo Sort algorithm with a limited
      * number of iterations.
@@ -32,9 +36,11 @@ public class BogoSort implements Strategy {
     @Override
     public int[] sort(int[] array, Order order, int iterations) {
         Random random = new Random();
+        logger.info("Starting BogoSort for int[] with order: {} and max iterations: {}", order, iterations);
 
         while (iterations != 0) {
             if (isSorted(array, order)) {
+                logger.info("Array is sorted after {} iterations.", iterations);
                 break;
             }
 
@@ -64,9 +70,11 @@ public class BogoSort implements Strategy {
     @Override
     public int[] sort(int[] array, Order order) {
         Random random = new Random();
+        logger.info("Starting BogoSort for int[] with order: {} and no iteration limit.", order);
 
         while (true) {
             if (isSorted(array, order)) {
+                logger.info("Array is sorted.");
                 break;
             }
 
@@ -76,7 +84,6 @@ public class BogoSort implements Strategy {
                 array[i] = array[randomIndex];
                 array[randomIndex] = temp;
             }
-
         }
         return array;
     }
@@ -113,9 +120,11 @@ public class BogoSort implements Strategy {
     @Override
     public float[] sort(float[] array, Order order, int iterations) {
         Random random = new Random();
+        logger.info("Starting BogoSort for float[] with order: {} and max iterations: {}", order, iterations);
 
         while (iterations != 0) {
             if (isSorted(array, order)) {
+                logger.info("Array is sorted after {} iterations.", iterations);
                 break;
             }
 
@@ -136,9 +145,11 @@ public class BogoSort implements Strategy {
     @Override
     public float[] sort(float[] array, Order order) {
         Random random = new Random();
+        logger.info("Starting BogoSort for float[] with order: {} and no iteration limit.", order);
 
         while (true) {
             if (isSorted(array, order)) {
+                logger.info("Array is sorted.");
                 break;
             }
 
@@ -148,7 +159,6 @@ public class BogoSort implements Strategy {
                 array[i] = array[randomIndex];
                 array[randomIndex] = temp;
             }
-
         }
         return array;
     }
@@ -170,9 +180,11 @@ public class BogoSort implements Strategy {
     @Override
     public String[] sort(String[] array, Order order, int iterations) {
         Random random = new Random();
+        logger.info("Starting BogoSort for String[] with order: {} and max iterations: {}", order, iterations);
 
         while (iterations != 0) {
             if (isSorted(array, order)) {
+                logger.info("Array is sorted after {} iterations.", iterations);
                 break;
             }
 
@@ -193,9 +205,11 @@ public class BogoSort implements Strategy {
     @Override
     public String[] sort(String[] array, Order order) {
         Random random = new Random();
+        logger.info("Starting BogoSort for String[] with order: {} and no iteration limit.", order);
 
         while (true) {
             if (isSorted(array, order)) {
+                logger.info("Array is sorted.");
                 break;
             }
 

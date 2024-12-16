@@ -1,5 +1,7 @@
 package put.iosort.Service.Strategies;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import put.iosort.Config.Order;
 import put.iosort.Service.Strategy.Strategy;
@@ -7,9 +9,13 @@ import put.iosort.Service.Strategy.Strategy;
 @Service
 public class CountingSort implements Strategy {
 
+    private static final Logger logger = LoggerFactory.getLogger(CountingSort.class);
+
     //-------------------FOR INT---------------------
     @Override
     public int[] sort(int[] array, Order order, int iterations) {
+        logger.debug("Starting sort for int array with size: {} and order: {}", array.length, order);
+
         int N = array.length;
         int M = 0;
 
@@ -23,12 +29,11 @@ public class CountingSort implements Strategy {
             countArray[j]++;
         }
 
-        if(order == Order.ASC) {
+        if (order == Order.ASC) {
             for (int i = 1; i <= M; i++) {
                 countArray[i] += countArray[i - 1];
             }
-        }
-        else if (order == Order.DESC) {
+        } else if (order == Order.DESC) {
             for (int i = M - 1; i >= 0; i--) {
                 countArray[i] += countArray[i + 1];
             }
@@ -40,16 +45,20 @@ public class CountingSort implements Strategy {
             outputArray[countArray[array[i]] - 1] = array[i];
             countArray[array[i]]--;
 
-            if(i == iterations) {
+            if (i == iterations) {
+                logger.debug("Breaking out of sort loop at iteration: {}", iterations);
                 break;
             }
         }
 
+        logger.debug("Sorting completed for int array");
         return outputArray;
     }
 
     @Override
     public int[] sort(int[] array, Order order) {
+        logger.debug("Starting sort for int array with size: {} and order: {}", array.length, order);
+
         int N = array.length;
         int M = 0;
 
@@ -63,12 +72,11 @@ public class CountingSort implements Strategy {
             countArray[j]++;
         }
 
-        if(order == Order.ASC) {
+        if (order == Order.ASC) {
             for (int i = 1; i <= M; i++) {
                 countArray[i] += countArray[i - 1];
             }
-        }
-        else if (order == Order.DESC) {
+        } else if (order == Order.DESC) {
             for (int i = M - 1; i >= 0; i--) {
                 countArray[i] += countArray[i + 1];
             }
@@ -81,12 +89,15 @@ public class CountingSort implements Strategy {
             countArray[array[i]]--;
         }
 
+        logger.debug("Sorting completed for int array");
         return outputArray;
     }
 
     //----------------FOR FLOAT-------------------
     @Override
     public float[] sort(float[] array, Order order, int iterations) {
+        logger.debug("Starting sort for float array with size: {} and order: {}", array.length, order);
+
         int N = array.length;
         float M = 0;
 
@@ -100,12 +111,11 @@ public class CountingSort implements Strategy {
             countArray[(int) j]++;
         }
 
-        if(order == Order.ASC) {
+        if (order == Order.ASC) {
             for (int i = 1; i <= M; i++) {
                 countArray[i] += countArray[i - 1];
             }
-        }
-        else if (order == Order.DESC) {
+        } else if (order == Order.DESC) {
             for (int i = (int) M - 1; i >= 0; i--) {
                 countArray[i] += countArray[i + 1];
             }
@@ -117,16 +127,20 @@ public class CountingSort implements Strategy {
             outputArray[countArray[(int) array[i]] - 1] = array[i];
             countArray[(int) array[i]]--;
 
-            if(i == iterations) {
+            if (i == iterations) {
+                logger.debug("Breaking out of sort loop at iteration: {}", iterations);
                 break;
             }
         }
 
+        logger.debug("Sorting completed for float array");
         return outputArray;
     }
 
     @Override
     public float[] sort(float[] array, Order order) {
+        logger.debug("Starting sort for float array with size: {} and order: {}", array.length, order);
+
         int N = array.length;
         float M = 0;
 
@@ -140,12 +154,11 @@ public class CountingSort implements Strategy {
             countArray[(int) j]++;
         }
 
-        if(order == Order.ASC) {
+        if (order == Order.ASC) {
             for (int i = 1; i <= M; i++) {
                 countArray[i] += countArray[i - 1];
             }
-        }
-        else if (order == Order.DESC) {
+        } else if (order == Order.DESC) {
             for (int i = (int) M - 1; i >= 0; i--) {
                 countArray[i] += countArray[i + 1];
             }
@@ -158,12 +171,15 @@ public class CountingSort implements Strategy {
             countArray[(int) array[i]]--;
         }
 
+        logger.debug("Sorting completed for float array");
         return outputArray;
     }
 
     //----------------FOR STRING-------------------
     @Override
     public String[] sort(String[] array, Order order, int iterations) {
+        logger.debug("Starting sort for string array with size: {} and order: {}", array.length, order);
+
         int N = array.length;
 
         // Find the maximum string length
@@ -201,6 +217,7 @@ public class CountingSort implements Strategy {
                 countArray[charIndex]--;
 
                 if (iterations > 0 && --iterations == 0) {
+                    logger.debug("Breaking out of sort loop at iteration: {}", iterations);
                     break;
                 }
             }
@@ -208,11 +225,14 @@ public class CountingSort implements Strategy {
             array = outputArray;
         }
 
+        logger.debug("Sorting completed for string array");
         return array;
     }
 
     @Override
     public String[] sort(String[] array, Order order) {
+        logger.debug("Starting sort for string array with size: {} and order: {}", array.length, order);
+
         int N = array.length;
 
         // Find the maximum string length
@@ -253,6 +273,7 @@ public class CountingSort implements Strategy {
             array = outputArray;
         }
 
+        logger.debug("Sorting completed for string array");
         return array;
     }
 }

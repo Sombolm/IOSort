@@ -1,6 +1,8 @@
 package put.iosort.Service;
 
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import put.iosort.Config.Order;
 import put.iosort.Entity.SortingResult.SortingResult;
@@ -44,160 +46,158 @@ import java.util.List;
 //@AllArgsConstructor
 public class Context {
 
+    private static final Logger logger = LoggerFactory.getLogger(Context.class);
+
     /**
      * Factory for creating sorting strategies.
      */
     private final StrategyFactory strategyFactory;
 
-    public Context(StrategyFactory strategyFactory){
+    public Context(StrategyFactory strategyFactory) {
         this.strategyFactory = strategyFactory;
     }
 
     //----------------FOR INT---------------------
-  
-     /**
-     * Handles the sorting of the given array of numbers using the specified strategy types, order, and iterations.
-     * <p>
-     * Each strategy is executed sequentially, and the sorted results are measured for performance
-     * (time taken in nanoseconds). The results for each strategy are encapsulated in
-     * {@link SortingResult} objects.
-     * </p>
-     *
-     * @param numbers       the array of integers to be sorted
-     * @param strategyTypes the array of strategy types defining the sorting algorithms to use
-     * @param order         the order (ascending or descending) in which to sort the numbers
-     * @param iterations    the number of iterations for the sorting algorithm to perform
-     * @return a list of {@link SortingResult} objects, each containing the sorted array and the duration of the sorting
-     */
-  
+
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResult> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for int array with {} strategies and {} iterations", strategyTypes.length, iterations);
 
         for (StrategyType strategyType : strategyTypes) {
-            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            logger.debug("Applying strategy: {}", strategyType);
 
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
             numbers = strategy.sort(numbers, order, iterations);
             long end = System.nanoTime();
             long duration = end - start;
 
             SortingResult sortingResult = new SortingResult(numbers, duration);
-
             sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
+        logger.info("Sorting process completed for int array.");
         return sortingResults;
     }
 
-    /**
-     * Handles the sorting of the given array of numbers using the specified strategy types and order.
-     * <p>
-     * Each strategy is executed sequentially, and the sorted results are measured for performance
-     * (time taken in nanoseconds). The results for each strategy are encapsulated in
-     * {@link SortingResult} objects.
-     * </p>
-     *
-     * @param numbers       the array of integers to be sorted
-     * @param strategyTypes the array of strategy types defining the sorting algorithms to use
-     * @param order         the order (ascending or descending) in which to sort the numbers
-     * @return a list of {@link SortingResult} objects, each containing the sorted array and the duration of the sorting
-     */
-
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order) {
         List<SortingResult> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for int array with {} strategies", strategyTypes.length);
 
         for (StrategyType strategyType : strategyTypes) {
-            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            logger.debug("Applying strategy: {}", strategyType);
 
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
             numbers = strategy.sort(numbers, order);
             long end = System.nanoTime();
             long duration = end - start;
 
             SortingResult sortingResult = new SortingResult(numbers, duration);
-
             sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
+        logger.info("Sorting process completed for int array.");
         return sortingResults;
-
     }
 
     //----------------FOR FLOAT---------------------
+
     public List<SortingResultFloat> handleContext(float[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResultFloat> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for float array with {} strategies and {} iterations", strategyTypes.length, iterations);
 
         for (StrategyType strategyType : strategyTypes) {
-            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            logger.debug("Applying strategy: {}", strategyType);
 
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
             numbers = strategy.sort(numbers, order, iterations);
             long end = System.nanoTime();
             long duration = end - start;
 
             SortingResultFloat sortingResult = new SortingResultFloat(numbers, duration);
-
             sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
+        logger.info("Sorting process completed for float array.");
         return sortingResults;
     }
 
     public List<SortingResultFloat> handleContext(float[] numbers, StrategyType[] strategyTypes, Order order) {
         List<SortingResultFloat> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for float array with {} strategies", strategyTypes.length);
 
         for (StrategyType strategyType : strategyTypes) {
-            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            logger.debug("Applying strategy: {}", strategyType);
 
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
             numbers = strategy.sort(numbers, order);
             long end = System.nanoTime();
             long duration = end - start;
 
             SortingResultFloat sortingResult = new SortingResultFloat(numbers, duration);
-
             sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
+        logger.info("Sorting process completed for float array.");
         return sortingResults;
     }
 
     //----------------FOR STRING---------------------
+
     public List<SortingResultString> handleContext(String[] numbers, StrategyType[] strategyTypes, Order order) {
         List<SortingResultString> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for string array with {} strategies", strategyTypes.length);
 
         for (StrategyType strategyType : strategyTypes) {
-            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            logger.debug("Applying strategy: {}", strategyType);
 
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
             numbers = strategy.sort(numbers, order);
             long end = System.nanoTime();
             long duration = end - start;
 
             SortingResultString sortingResult = new SortingResultString(numbers, duration);
-
             sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
+        logger.info("Sorting process completed for string array.");
         return sortingResults;
     }
 
     public List<SortingResultString> handleContext(String[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResultString> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for string array with {} strategies and {} iterations", strategyTypes.length, iterations);
 
         for (StrategyType strategyType : strategyTypes) {
-            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            logger.debug("Applying strategy: {}", strategyType);
 
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
             numbers = strategy.sort(numbers, order, iterations);
             long end = System.nanoTime();
             long duration = end - start;
 
             SortingResultString sortingResult = new SortingResultString(numbers, duration);
-
             sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
+        logger.info("Sorting process completed for string array.");
         return sortingResults;
     }
 }

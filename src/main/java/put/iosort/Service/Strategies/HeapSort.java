@@ -1,5 +1,7 @@
 package put.iosort.Service.Strategies;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import put.iosort.Config.Order;
 import put.iosort.Service.Strategy.Strategy;
@@ -7,9 +9,12 @@ import put.iosort.Service.Strategy.Strategy;
 @Service
 public class HeapSort implements Strategy {
 
+    private static final Logger logger = LoggerFactory.getLogger(HeapSort.class);
+
     //----------FOR INT------------
     @Override
     public int[] sort(int[] array, Order order, int iterations) {
+        logger.info("Starting sorting of int array with {} order", order);
         int n = array.length;
 
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -23,7 +28,12 @@ public class HeapSort implements Strategy {
 
             heapify(array, i, 0, order);
 
-            if (i == iterations) break;
+            logger.debug("Heapified array: {}", (Object) array);
+
+            if (i == iterations) {
+                logger.info("Breaking at iteration {}", i);
+                break;
+            }
         }
 
         return array;
@@ -31,6 +41,7 @@ public class HeapSort implements Strategy {
 
     @Override
     public int[] sort(int[] array, Order order) {
+        logger.info("Starting sorting of int array with {} order", order);
         int n = array.length;
 
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -43,6 +54,8 @@ public class HeapSort implements Strategy {
             array[i] = temp;
 
             heapify(array, i, 0, order);
+
+            logger.debug("Heapified array: {}", (Object) array);
         }
 
         return array;
@@ -77,6 +90,7 @@ public class HeapSort implements Strategy {
     //----------FOR FLOAT------------
     @Override
     public float[] sort(float[] array, Order order, int iterations) {
+        logger.info("Starting sorting of float array with {} order", order);
         int n = array.length;
 
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -90,7 +104,12 @@ public class HeapSort implements Strategy {
 
             heapify(array, i, 0, order);
 
-            if (i == iterations) break;
+            logger.debug("Heapified array: {}", (Object) array);
+
+            if (i == iterations) {
+                logger.info("Breaking at iteration {}", i);
+                break;
+            }
         }
 
         return array;
@@ -98,6 +117,7 @@ public class HeapSort implements Strategy {
 
     @Override
     public float[] sort(float[] array, Order order) {
+        logger.info("Starting sorting of float array with {} order", order);
         int n = array.length;
 
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -110,6 +130,8 @@ public class HeapSort implements Strategy {
             array[i] = temp;
 
             heapify(array, i, 0, order);
+
+            logger.debug("Heapified array: {}", (Object) array);
         }
 
         return array;
@@ -144,6 +166,7 @@ public class HeapSort implements Strategy {
     //----------FOR STRING------------
     @Override
     public String[] sort(String[] array, Order order, int iterations) {
+        logger.info("Starting sorting of string array with {} order", order);
         int n = array.length;
 
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -157,7 +180,12 @@ public class HeapSort implements Strategy {
 
             heapify(array, i, 0, order);
 
-            if (i == iterations) break;
+            logger.debug("Heapified array: {}", (Object) array);
+
+            if (i == iterations) {
+                logger.info("Breaking at iteration {}", i);
+                break;
+            }
         }
 
         return array;
@@ -165,6 +193,7 @@ public class HeapSort implements Strategy {
 
     @Override
     public String[] sort(String[] array, Order order) {
+        logger.info("Starting sorting of string array with {} order", order);
         int n = array.length;
 
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -177,6 +206,8 @@ public class HeapSort implements Strategy {
             array[i] = temp;
 
             heapify(array, i, 0, order);
+
+            logger.debug("Heapified array: {}", (Object) array);
         }
 
         return array;
