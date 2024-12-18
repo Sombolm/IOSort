@@ -13,6 +13,7 @@ import put.iosort.Service.Strategy.Strategy;
 import put.iosort.Service.Strategy.StrategyType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -68,11 +69,12 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order, iterations);
+
+            int[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order, iterations);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResult sortingResult = new SortingResult(numbers, duration);
+            SortingResult sortingResult = new SortingResult(numbersResult, duration);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -91,11 +93,11 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order);
+            int[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResult sortingResult = new SortingResult(numbers, duration);
+            SortingResult sortingResult = new SortingResult(numbersResult, duration);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -116,11 +118,11 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order, iterations);
+            float[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order, iterations);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultFloat sortingResult = new SortingResultFloat(numbers, duration);
+            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -139,11 +141,11 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order);
+            float[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultFloat sortingResult = new SortingResultFloat(numbers, duration);
+            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -164,11 +166,11 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order);
+            String[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultString sortingResult = new SortingResultString(numbers, duration);
+            SortingResultString sortingResult = new SortingResultString(numbersResult, duration);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -187,11 +189,11 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order, iterations);
+            String[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order, iterations);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultString sortingResult = new SortingResultString(numbers, duration);
+            SortingResultString sortingResult = new SortingResultString(numbersResult, duration);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
