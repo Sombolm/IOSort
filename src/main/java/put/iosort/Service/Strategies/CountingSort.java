@@ -1,5 +1,6 @@
 package put.iosort.Service.Strategies;
 
+import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -180,100 +181,126 @@ public class CountingSort implements Strategy {
     public String[] sort(String[] array, Order order, int iterations) {
         logger.debug("Starting sort for string array with size: {} and order: {}", array.length, order);
 
-        int N = array.length;
-
-        // Find the maximum string length
+        // Szukamy najdłuższego stringa w tablicy
         int maxLength = 0;
         for (String str : array) {
-            maxLength = Math.max(maxLength, str.length());
+            if (str.length() > maxLength) {
+                maxLength = str.length();
+            }
         }
 
-        // Perform counting sort for each character position, starting from the end
-        for (int pos = maxLength - 1; pos >= 0; pos--) {
-            int[] countArray = new int[256];
+        // Dokładanie spacji do stringów, żeby wyrównać ich długość
+        String[] paddedArray = new String[array.length];
+        for (int i = 0; i < array.length; i++) {
+            paddedArray[i] = padRight(array[i], maxLength);
+        }
 
-            // Count occurrences of characters at position 'pos'
-            for (String str : array) {
-                int charIndex = pos < str.length() ? str.charAt(pos) : 0;
-                countArray[charIndex]++;
-            }
+        // Counting sort dla każdej pozycji znaku, zaczynając od najmniej znaczącego
+        int iterationsPerformed = 0;
+        for (int position = maxLength - 1; position >= 0 && iterationsPerformed < iterations; position--) {
+            countingSortByCharacter(paddedArray, position);
+            iterationsPerformed++;
+        }
+        logger.debug("Breaking out of sort loop at iteration: {}", iterations);
 
-            // Accumulate counts for sorting
-            if (order == Order.ASC) {
-                for (int i = 1; i < 256; i++) {
-                    countArray[i] += countArray[i - 1];
-                }
-            } else {
-                for (int i = 254; i >= 0; i--) {
-                    countArray[i] += countArray[i + 1];
-                }
-            }
+        // Nałożony padding trzeba usunąć
+        for (int i = 0; i < paddedArray.length; i++) {
+            paddedArray[i] = paddedArray[i].trim();
+        }
 
-            // Build the sorted output array
-            String[] outputArray = new String[N];
-            for (int i = N - 1; i >= 0; i--) {
-                int charIndex = pos < array[i].length() ? array[i].charAt(pos) : 0;
-                outputArray[countArray[charIndex] - 1] = array[i];
-                countArray[charIndex]--;
-
-                if (iterations > 0 && --iterations == 0) {
-                    logger.debug("Breaking out of sort loop at iteration: {}", iterations);
-                    break;
-                }
-            }
-
-            array = outputArray;
+        // Odwracamy listę, jeśli porządek ma być malejący
+        if (order == Order.DESC) {
+            reverseArray(paddedArray);
         }
 
         logger.debug("Sorting completed for string array");
-        return array;
+        return paddedArray;
     }
 
     @Override
     public String[] sort(String[] array, Order order) {
         logger.debug("Starting sort for string array with size: {} and order: {}", array.length, order);
 
-        int N = array.length;
-
-        // Find the maximum string length
+        // Szukamy najdłuższego stringa w tablicy
         int maxLength = 0;
         for (String str : array) {
-            maxLength = Math.max(maxLength, str.length());
+            if (str.length() > maxLength) {
+                maxLength = str.length();
+            }
         }
 
-        // Perform counting sort for each character position, starting from the end
-        for (int pos = maxLength - 1; pos >= 0; pos--) {
-            int[] countArray = new int[256];
+        // Dokładanie spacji do stringów, żeby wyrównać ich długość
+        String[] paddedArray = new String[array.length];
+        for (int i = 0; i < array.length; i++) {
+            paddedArray[i] = padRight(array[i], maxLength);
+        }
 
-            // Count occurrences of characters at position 'pos'
-            for (String str : array) {
-                int charIndex = pos < str.length() ? str.charAt(pos) : 0;
-                countArray[charIndex]++;
-            }
+        // Counting sort dla każdej pozycji znaku, zaczynając od najmniej znaczącego
+        for (int position = maxLength - 1; position >= 0; position--) {
+            countingSortByCharacter(paddedArray, position);
+        }
 
-            // Accumulate counts for sorting
-            if (order == Order.ASC) {
-                for (int i = 1; i < 256; i++) {
-                    countArray[i] += countArray[i - 1];
-                }
-            } else {
-                for (int i = 254; i >= 0; i--) {
-                    countArray[i] += countArray[i + 1];
-                }
-            }
+        // Nałożony padding trzeba usunąć
+        for (int i = 0; i < paddedArray.length; i++) {
+            paddedArray[i] = paddedArray[i].trim();
+        }
 
-            // Build the sorted output array
-            String[] outputArray = new String[N];
-            for (int i = N - 1; i >= 0; i--) {
-                int charIndex = pos < array[i].length() ? array[i].charAt(pos) : 0;
-                outputArray[countArray[charIndex] - 1] = array[i];
-                countArray[charIndex]--;
-            }
-
-            array = outputArray;
+        // Odwracamy listę, jeśli porządek ma być malejący
+        if (order == Order.DESC) {
+            reverseArray(paddedArray);
         }
 
         logger.debug("Sorting completed for string array");
-        return array;
+        return paddedArray;
+    }
+
+    private void countingSortByCharacter(String[] array, int position) {
+        int n = array.length;
+        String[] outputArray = new String[n];
+
+        // Counting array dla ASCII (0-255)
+        int[] count = new int[256];
+        Arrays.fill(count, 0);
+
+        // Licz pojawienia się znaków na konkretnej pozycji
+        for (String str : array) {
+            char c = str.charAt(position);
+            count[c]++;
+        }
+
+        // Aktualizacja Counting array
+        for (int i = 1; i < count.length; i++) {
+            count[i] += count[i - 1];
+        }
+
+        // Złóż w całość wynik iteracji
+        for (int i = n - 1; i >= 0; i--) {
+            char c = array[i].charAt(position);
+            outputArray[count[c] - 1] = array[i];
+            count[c]--;
+        }
+
+        // Przekopiowuje posortowane dane bezposrednio do arguementu
+        System.arraycopy(outputArray, 0, array, 0, n);
+    }
+
+    private String padRight(String str, int length) {
+        StringBuilder sb = new StringBuilder(str);
+        while (sb.length() < length) {
+            sb.append(' ');
+        }
+        return sb.toString();
+    }
+
+    private void reverseArray(String[] array) {
+        int left = 0;
+        int right = array.length - 1;
+        while (left < right) {
+            String temp = array[left];
+            array[left] = array[right];
+            array[right] = temp;
+            left++;
+            right--;
+        }
     }
 }
