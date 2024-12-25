@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import put.iosort.Controller.CustomValidator.CustomValidator;
+import put.iosort.Controller.DataGenerator.DataGenerator;
 import put.iosort.Entity.Input.InputDTO;
 import put.iosort.Entity.Input.InputFloatDTO;
 import put.iosort.Entity.Input.InputStringDTO;
@@ -16,6 +17,9 @@ import static put.iosort.Config.RestEndpoints.*;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * The {@code Controller} class is a REST controller that handles API requests for sorting operations.
@@ -86,10 +90,12 @@ public class Controller {
     //Injectuje (czyli wstrzykuje, dodaje do klasy) obiekty klasy Context oraz CustomValidator
     private final Context context;
     private final CustomValidator validator;
+    private final DataGenerator dataGenerator;
 
-    public Controller(Context context, CustomValidator validator){
+    public Controller(Context context, CustomValidator validator, DataGenerator dataGenerator) {
         this.context = context;
         this.validator = validator;
+        this.dataGenerator = dataGenerator;
     }
 
     /**
@@ -105,10 +111,18 @@ public class Controller {
     @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
     public ResponseEntity<Object> getSortedArray(@RequestBody InputDTO input,
                                                  @PathVariable("order") Order order,
-                                                 @PathVariable("iterations") int iterations) {
+                                                 @PathVariable("iterations") int iterations,
+                                                 @RequestParam("generateData") Optional<Boolean> generateData) {
+
         logger.info("Received request for sorting an integer array with order {} and iterations {}", order, iterations);
         logger.debug("Input array: {}, Sorting strategies: {}", input.getNumbers(), input.getStrategyTypes());
+
+        if (generateData.isPresent() && generateData.get()) {
+            logger.info("Generating random data for input array.");
+            input.setNumbers(dataGenerator.generateRandomIntArray());
+        }
         validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
+
         ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(), input.getStrategyTypes(), order, iterations));
         logger.info("Sorting completed successfully.");
         return response;
@@ -117,9 +131,16 @@ public class Controller {
     @GetMapping(value = GET + ARRAY + FLOAT + ORDER + ITERATIONS)
     public ResponseEntity<Object> getSortedArray(@RequestBody InputFloatDTO input,
                                                  @PathVariable("order") Order order,
-                                                 @PathVariable("iterations") int iterations) {
+                                                 @PathVariable("iterations") int iterations,
+                                                 @RequestParam("generateData") Optional<Boolean> generateData) {
         logger.info("Received request for sorting a float array with order {} and iterations {}", order, iterations);
         logger.debug("Input array: {}, Sorting strategies: {}", input.getNumbers(), input.getStrategyTypes());
+
+        if (generateData.isPresent() && generateData.get()) {
+            logger.info("Generating random data for input array.");
+            input.setNumbers(dataGenerator.generateRandomFloatArray());
+        }
+
         validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
         ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(), input.getStrategyTypes(), order, iterations));
         logger.info("Sorting completed successfully.");
@@ -129,9 +150,16 @@ public class Controller {
     @GetMapping(value = GET + ARRAY + STRING + ORDER + ITERATIONS)
     public ResponseEntity<Object> getSortedArray(@RequestBody InputStringDTO input,
                                                  @PathVariable("order") Order order,
-                                                 @PathVariable("iterations") int iterations) {
+                                                 @PathVariable("iterations") int iterations,
+                                                 @RequestParam("generateData") Optional<Boolean> generateData) {
         logger.info("Received request for sorting a string array with order {} and iterations {}", order, iterations);
         logger.debug("Input array: {}, Sorting strategies: {}", input.getNumbers(), input.getStrategyTypes());
+
+        if (generateData.isPresent() && generateData.get()) {
+            logger.info("Generating random data for input array.");
+            input.setNumbers(dataGenerator.generateRandomStringArray());
+        }
+
         validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
         ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(), input.getStrategyTypes(), order, iterations));
         logger.info("Sorting completed successfully.");
@@ -148,9 +176,16 @@ public class Controller {
      */
     @GetMapping(value = GET + ARRAY + ORDER)
     public ResponseEntity<Object> getSortedArray(@RequestBody InputDTO input,
-                                                 @PathVariable("order") Order order) {
+                                                 @PathVariable("order") Order order,
+                                                 @RequestParam("generateData") Optional<Boolean> generateData) {
         logger.info("Received request for sorting an integer array with order {}", order);
         logger.debug("Input array: {}, Sorting strategies: {}", input.getNumbers(), input.getStrategyTypes());
+
+        if (generateData.isPresent() && generateData.get()) {
+            logger.info("Generating random data for input array.");
+            input.setNumbers(dataGenerator.generateRandomIntArray());
+        }
+
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
         ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(), input.getStrategyTypes(), order));
         logger.info("Sorting completed successfully.");
@@ -159,9 +194,16 @@ public class Controller {
 
     @GetMapping(value = GET + ARRAY + FLOAT + ORDER)
     public ResponseEntity<Object> getSortedArray(@RequestBody InputFloatDTO input,
-                                                 @PathVariable("order") Order order) {
+                                                 @PathVariable("order") Order order,
+                                                 @RequestParam("generateData") Optional<Boolean> generateData) {
         logger.info("Received request for sorting a float array with order {}", order);
         logger.debug("Input array: {}, Sorting strategies: {}", input.getNumbers(), input.getStrategyTypes());
+
+        if (generateData.isPresent() && generateData.get()) {
+            logger.info("Generating random data for input array.");
+            input.setNumbers(dataGenerator.generateRandomFloatArray());
+        }
+
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
         ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(), input.getStrategyTypes(), order));
         logger.info("Sorting completed successfully.");
@@ -170,9 +212,16 @@ public class Controller {
 
     @GetMapping(value = GET + ARRAY + STRING + ORDER)
     public ResponseEntity<Object> getSortedArray(@RequestBody InputStringDTO input,
-                                                 @PathVariable("order") Order order) {
+                                                 @PathVariable("order") Order order,
+                                                 @RequestParam("generateData") Optional<Boolean> generateData) {
         logger.info("Received request for sorting a string array with order {}", order);
         logger.debug("Input array: {}, Sorting strategies: {}", input.getNumbers(), input.getStrategyTypes());
+
+        if (generateData.isPresent() && generateData.get()) {
+            logger.info("Generating random data for input array.");
+            input.setNumbers(dataGenerator.generateRandomStringArray());
+        }
+
         validator.validateEndpointInput(input.getNumbers(), input.getStrategyTypes());
         ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(), input.getStrategyTypes(), order));
         logger.info("Sorting completed successfully.");

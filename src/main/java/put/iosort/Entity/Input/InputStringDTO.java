@@ -44,4 +44,7 @@ public class InputStringDTO {
         return strategyTypes;
     }
 
+    public void setNumbers(String[] strings) {
+        this.numbers = strings;
+    }
 }
