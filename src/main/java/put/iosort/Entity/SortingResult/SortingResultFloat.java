@@ -2,6 +2,7 @@ package put.iosort.Entity.SortingResult;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import put.iosort.Service.Strategy.StrategyType;
 
 /**
  * Output structure for floats.
@@ -21,9 +22,11 @@ public class SortingResultFloat {
 
     public float[] sortedArray;
     public long duration;
+    public StrategyType strategyType;
 
-    public SortingResultFloat(float[] sortedArray, long duration) {
+    public SortingResultFloat(float[] sortedArray, long duration, StrategyType strategyType) {
         this.sortedArray = sortedArray;
         this.duration = duration;
+        this.strategyType = strategyType;
     }
 }
