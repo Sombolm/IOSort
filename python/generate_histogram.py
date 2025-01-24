@@ -16,7 +16,7 @@ def generate_histogram():
 
         # Extract durations and algorithm types
         durations = [entry['duration'] for entry in data]
-        algorithms = [entry.get('algorithm', f"Algorithm {i + 1}") for i, entry in enumerate(data)]
+        algorithms = [entry.get('strategyType', f"Algorithm {i + 1}") for i, entry in enumerate(data)]
 
         # Generate the histogram
         plt.figure(figsize=(10, 6))
@@ -30,6 +30,7 @@ def generate_histogram():
         # Save the histogram as an image file
         plt.savefig(OUTPUT_IMAGE_PATH)
         print(f"Histogram saved to: {OUTPUT_IMAGE_PATH}")
+        plt.show()
 
     except FileNotFoundError:
         print(f"Error: JSON file not found at {JSON_FILE_PATH}")

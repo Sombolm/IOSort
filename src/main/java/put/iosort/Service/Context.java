@@ -212,7 +212,7 @@ public class Context {
     public void runPythonScript() {
         try {
             // Define the command to execute the Python script
-            ProcessBuilder processBuilder = new ProcessBuilder("python3", "python/generate_histogram.py");
+            ProcessBuilder processBuilder = new ProcessBuilder("python", "python/generate_histogram.py");
             processBuilder.directory(new File(System.getProperty("user.dir"))); // Set the working directory
             Process process = processBuilder.start();
             int exitCode = process.waitFor(); // Wait for the script to complete
