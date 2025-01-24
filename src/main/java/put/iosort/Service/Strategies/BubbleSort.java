@@ -163,4 +163,100 @@ public class BubbleSort implements Strategy {
     private boolean compare(String a, String b, Order order) {
         return order == Order.ASC ? a.compareTo(b) > 0 : a.compareTo(b) < 0;
     }
+
+    @Override
+    public int[] sortWithTimeLimit(int[] array, Order order, int iterations, long timeLimitNano) {
+        logger.info("Starting BubbleSort for int array with {} iterations and time limit {} ms.", iterations, timeLimitNano);
+        int n = array.length;
+        long startTime = System.nanoTime();
+
+        outerloop:
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                logger.debug("Comparing elements: {} and {}", array[j], array[j + 1]);
+                if (compare(array[j], array[j + 1], order)) {
+                    logger.debug("Swapping elements: {} and {}", array[j], array[j + 1]);
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+
+                if (i * j == iterations) {
+                    logger.info("Reached iteration limit, stopping sorting.");
+                    break outerloop;
+                }
+
+                if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                    logger.info("Time limit of {} ms reached, stopping sorting.", timeLimitNano);
+                    break outerloop;
+                }
+            }
+        }
+        logger.info("Sorting completed.");
+        return array;
+    }
+
+    @Override
+    public String[] sortWithTimeLimit(String[] array, Order order, int iterations, long timeLimitNano) {
+        logger.info("Starting BubbleSort for String array with {} iterations and time limit {} ms.", iterations, timeLimitNano);
+        int n = array.length;
+        long startTime = System.nanoTime();
+
+        outerloop:
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                logger.debug("Comparing elements: '{}' and '{}'", array[j], array[j + 1]);
+                if (compare(array[j], array[j + 1], order)) {
+                    logger.debug("Swapping elements: '{}' and '{}'", array[j], array[j + 1]);
+                    String temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+
+                if (i * j == iterations) {
+                    logger.info("Reached iteration limit, stopping sorting.");
+                    break outerloop;
+                }
+
+                if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                    logger.info("Time limit of {} ms reached, stopping sorting.", timeLimitNano);
+                    break outerloop;
+                }
+            }
+        }
+        logger.info("Sorting completed.");
+        return array;
+    }
+
+    @Override
+    public float[] sortWithTimeLimit(float[] array, Order order, int iterations, long timeLimitNano) {
+        logger.info("Starting BubbleSort for float array with {} iterations and time limit {} ms.", iterations, timeLimitNano);
+        int n = array.length;
+        long startTime = System.nanoTime();
+
+        outerloop:
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - 1 - i; j++) {
+                logger.debug("Comparing elements: {} and {}", array[j], array[j + 1]);
+                if (compare(array[j], array[j + 1], order)) {
+                    logger.debug("Swapping elements: {} and {}", array[j], array[j + 1]);
+                    float temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+                }
+
+                if (i * j == iterations) {
+                    logger.info("Reached iteration limit, stopping sorting.");
+                    break outerloop;
+                }
+
+                if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                    logger.info("Time limit of {} ms reached, stopping sorting.", timeLimitNano);
+                    break outerloop;
+                }
+            }
+        }
+        logger.info("Sorting completed.");
+        return array;
+    }
 }

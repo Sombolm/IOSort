@@ -238,4 +238,106 @@ public class HeapSort implements Strategy {
     private boolean compare(String a, String b, Order order) {
         return order == Order.ASC ? a.compareTo(b) > 0 : a.compareTo(b) < 0;
     }
+
+    @Override
+    public int[] sortWithTimeLimit(int[] array, Order order, int iterations, long timeLimitNano) {
+        logger.info("Starting HeapSort for int array. Order: {}, Iterations: {}, Time Limit: {} ns", order, iterations, timeLimitNano);
+        int n = array.length;
+        long startTime = System.nanoTime();
+
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(array, n, i, order);
+        }
+
+        for (int i = n - 1; i > 0; i--) {
+            int temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+
+            heapify(array, i, 0, order);
+
+            logger.debug("Heapified array: {}", (Object) array);
+
+            if (n - i == iterations) {
+                logger.info("Breaking at iteration {}", iterations);
+                break;
+            }
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ns reached. Stopping sort.", timeLimitNano);
+                break;
+            }
+        }
+
+        logger.info("HeapSort completed for int array.");
+        return array;
+    }
+
+    @Override
+    public float[] sortWithTimeLimit(float[] array, Order order, int iterations, long timeLimitNano) {
+        logger.info("Starting HeapSort for float array. Order: {}, Iterations: {}, Time Limit: {} ns", order, iterations, timeLimitNano);
+        int n = array.length;
+        long startTime = System.nanoTime();
+
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(array, n, i, order);
+        }
+
+        for (int i = n - 1; i > 0; i--) {
+            float temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+
+            heapify(array, i, 0, order);
+
+            logger.debug("Heapified array: {}", (Object) array);
+
+            if (n - i == iterations) {
+                logger.info("Breaking at iteration {}", iterations);
+                break;
+            }
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ns reached. Stopping sort.", timeLimitNano);
+                break;
+            }
+        }
+
+        logger.info("HeapSort completed for float array.");
+        return array;
+    }
+
+    @Override
+    public String[] sortWithTimeLimit(String[] array, Order order, int iterations, long timeLimitNano) {
+        logger.info("Starting HeapSort for string array. Order: {}, Iterations: {}, Time Limit: {} ns", order, iterations, timeLimitNano);
+        int n = array.length;
+        long startTime = System.nanoTime();
+
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(array, n, i, order);
+        }
+
+        for (int i = n - 1; i > 0; i--) {
+            String temp = array[0];
+            array[0] = array[i];
+            array[i] = temp;
+
+            heapify(array, i, 0, order);
+
+            logger.debug("Heapified array: {}", (Object) array);
+
+            if (n - i == iterations) {
+                logger.info("Breaking at iteration {}", iterations);
+                break;
+            }
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ns reached. Stopping sort.", timeLimitNano);
+                break;
+            }
+        }
+
+        logger.info("HeapSort completed for string array.");
+        return array;
+    }
 }

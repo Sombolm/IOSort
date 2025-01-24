@@ -20,4 +20,16 @@ public interface Strategy {
     int[] sort(int[] array, Order order);
     float[] sort(float[] array, Order order);
     String[] sort(String[] array, Order order);
+
+    default int[] sortWithTimeLimit(int[] array, Order order, int iterations, long timeLimitMillis) {
+        return sort(array, order, iterations); // Default implementation
+    }
+
+    default String[] sortWithTimeLimit(String[] array, Order order, int iterations, long timeLimitMillis) {
+        return sort(array, order, iterations); // Default implementation
+    }
+
+    default float[] sortWithTimeLimit(float[] array, Order order, int iterations, long timeLimitMillis) {
+        return sort(array, order, iterations); // Default implementation
+    }
 }
