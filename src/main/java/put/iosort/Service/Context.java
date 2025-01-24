@@ -84,6 +84,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for int array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -108,8 +111,8 @@ public class Context {
 
         logger.info("Sorting process completed for int array.");
 
-//        saveResultsAsJson(sortingResults, "python/sort_results.json");
-//        runPythonScript();
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -135,6 +138,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for float array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -158,6 +164,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for float array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -183,6 +192,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for string array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -206,6 +218,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for string array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
