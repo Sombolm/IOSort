@@ -1,6 +1,7 @@
 package put.iosort.Service.Strategies;
 
 import java.util.Arrays;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -303,4 +304,149 @@ public class CountingSort implements Strategy {
             right--;
         }
     }
+
+
+    @Override
+    public int[] sortWithTimeLimit(int[] array, Order order, int iterations, long timeLimitNano) {
+        logger.debug("Starting sort for int array with size: {} and order: {}", array.length, order);
+
+        int N = array.length;
+        int M = 0;
+        long startTime = System.nanoTime();
+
+        for (int j : array) {
+            M = Math.max(M, j);
+        }
+
+        int[] countArray = new int[M + 1];
+
+        for (int j : array) {
+            countArray[j]++;
+        }
+
+        if (order == Order.ASC) {
+            for (int i = 1; i <= M; i++) {
+                countArray[i] += countArray[i - 1];
+            }
+        } else if (order == Order.DESC) {
+            for (int i = M - 1; i >= 0; i--) {
+                countArray[i] += countArray[i + 1];
+            }
+        }
+
+        int[] outputArray = new int[N];
+
+        for (int i = N - 1; i >= 0; i--) {
+            outputArray[countArray[array[i]] - 1] = array[i];
+            countArray[array[i]]--;
+
+            if (i == iterations) {
+                logger.debug("Breaking out of sort loop at iteration: {}", iterations);
+                break;
+            }
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ms reached, stopping sorting.", timeLimitNano);
+                break;
+            }
+        }
+
+        logger.debug("Sorting completed for int array");
+        return outputArray;
+    }
+
+    @Override
+    public String[] sortWithTimeLimit(String[] array, Order order, int iterations, long timeLimitNano) {
+        logger.debug("Starting sort for string array with size: {} and order: {}", array.length, order);
+
+        // Szukamy najdłuższego stringa w tablicy
+        int maxLength = 0;
+        for (String str : array) {
+            if (str.length() > maxLength) {
+                maxLength = str.length();
+            }
+        }
+
+        // Dokładanie spacji do stringów, żeby wyrównać ich długość
+        String[] paddedArray = new String[array.length];
+        for (int i = 0; i < array.length; i++) {
+            paddedArray[i] = padRight(array[i], maxLength);
+        }
+
+        // Counting sort dla każdej pozycji znaku, zaczynając od najmniej znaczącego
+        int iterationsPerformed = 0;
+        long startTime = System.nanoTime();
+        for (int position = maxLength - 1; position >= 0 && iterationsPerformed < iterations; position--) {
+            countingSortByCharacter(paddedArray, position);
+            iterationsPerformed++;
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ms reached, stopping sorting.", timeLimitNano);
+                break;
+            }
+        }
+        logger.debug("Breaking out of sort loop at iteration: {}", iterations);
+
+        // Nałożony padding trzeba usunąć
+        for (int i = 0; i < paddedArray.length; i++) {
+            paddedArray[i] = paddedArray[i].trim();
+        }
+
+        // Odwracamy listę, jeśli porządek ma być malejący
+        if (order == Order.DESC) {
+            reverseArray(paddedArray);
+        }
+
+        logger.debug("Sorting completed for string array");
+        return paddedArray;
+    }
+        @Override
+        public float[] sortWithTimeLimit ( float[] array, Order order,int iterations, long timeLimitNano){
+            logger.debug("Starting sort for float array with size: {} and order: {}", array.length, order);
+
+            int N = array.length;
+            long startTime = System.nanoTime();
+
+            float maxValue = Float.MIN_VALUE;
+            for (float value : array) {
+                maxValue = Math.max(maxValue, value);
+            }
+
+            int[] countArray = new int[(int) maxValue + 1];
+
+            for (float value : array) {
+                countArray[(int) value]++;
+            }
+
+            if (order == Order.ASC) {
+                for (int i = 1; i < countArray.length; i++) {
+                    countArray[i] += countArray[i - 1];
+                }
+            } else if (order == Order.DESC) {
+                for (int i = countArray.length - 2; i >= 0; i--) {
+                    countArray[i] += countArray[i + 1];
+                }
+            }
+
+            float[] outputArray = new float[N];
+
+            for (int i = N - 1; i >= 0; i--) {
+                outputArray[countArray[(int) array[i]] - 1] = array[i];
+                countArray[(int) array[i]]--;
+
+                if (i == iterations) {
+                    logger.debug("Breaking out of sort loop at iteration: {}", iterations);
+                    break;
+                }
+
+                if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                    logger.info("Time limit of {} ms reached, stopping sorting.", timeLimitNano);
+                    break;
+                }
+            }
+
+            logger.debug("Sorting completed for float array");
+            return outputArray;
+        }
+
 }

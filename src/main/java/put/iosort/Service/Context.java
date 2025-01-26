@@ -19,6 +19,7 @@ import java.util.List;
 import java.io.File;
 import java.io.IOException;
 
+
 /**
  * The {@code Context} class acts as a service layer responsible for orchestrating
  * the sorting of arrays based on the provided strategies and orders.
@@ -198,23 +199,51 @@ public class Context {
         return sortingResults;
     }
 
-    public List<SortingResultString> handleContext(String[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
+    //timelimit
+    public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
+        List<SortingResult> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for int array with {} strategies, {} iterations, and time limit {} ms",
+                strategyTypes.length, iterations, timeLimitNano);
+
+        for (StrategyType strategyType : strategyTypes) {
+            logger.debug("Applying strategy: {}", strategyType);
+
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            long start = System.nanoTime(); // Zmierz czas rozpoczęcia na poziomie strategii
+            int[] numbersResult = strategy.sortWithTimeLimit(Arrays.copyOf(numbers, numbers.length), order, iterations, timeLimitNano);
+            long end = System.nanoTime();   // Zmierz czas zakończenia
+            long duration = (end - start);
+
+            // Tworzenie wyniku
+            SortingResult sortingResult = new SortingResult(numbersResult, duration, strategyType);
+            sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
+        }
+
+        logger.info("Sorting process completed for int array.");
+        return sortingResults;
+    }
+
+    public List<SortingResultString> handleContext(String[] strings, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
         List<SortingResultString> sortingResults = new ArrayList<>();
-        logger.info("Sorting process started for string array with {} strategies and {} iterations", strategyTypes.length, iterations);
+        logger.info("Sorting process started for String array with {} strategies, {} iterations, and time limit {} ms",
+                strategyTypes.length, iterations, timeLimitNano);
 
         for (StrategyType strategyType : strategyTypes) {
             logger.debug("Applying strategy: {}", strategyType);
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            String[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order, iterations);
+            String[] stringsResult = strategy.sortWithTimeLimit(Arrays.copyOf(strings, strings.length), order, iterations, timeLimitNano);
             long end = System.nanoTime();
-            long duration = end - start;
+            long duration = (end - start);
 
-            SortingResultString sortingResult = new SortingResultString(numbersResult, duration, strategyType);
+            SortingResultString sortingResult = new SortingResultString(stringsResult, duration, strategyType);
+
             sortingResults.add(sortingResult);
 
-            logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
+            logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
         }
 
         logger.info("Sorting process completed for string array.");
@@ -224,6 +253,30 @@ public class Context {
         return sortingResults;
     }
 
+    public List<SortingResultFloat> handleContext(float[] numbers, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
+        List<SortingResultFloat> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for float array with {} strategies, {} iterations, and time limit {} ms",
+                strategyTypes.length, iterations, timeLimitNano);
+
+        for (StrategyType strategyType : strategyTypes) {
+            logger.debug("Applying strategy: {}", strategyType);
+
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            long start = System.nanoTime();
+            float[] numbersResult = strategy.sortWithTimeLimit(Arrays.copyOf(numbers, numbers.length), order, iterations, timeLimitNano);
+            long end = System.nanoTime();
+            long duration = (end - start);
+
+            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration, strategyType);
+            sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
+        }
+
+        logger.info("Sorting process completed for float array.");
+        return sortingResults;
+    }
+      
     public void runPythonScript() {
         try {
             // Define the command to execute the Python script

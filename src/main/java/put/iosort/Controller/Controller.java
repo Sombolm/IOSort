@@ -101,14 +101,14 @@ public class Controller {
     /**
      * Handles HTTP GET requests for sorting an array with a specified order and a limited number of iterations.
      *
-     * @param input     the {@link InputDTO} containing the array to be sorted and sorting strategies.
-     * @param order     the {@link Order} specifying whether the sorting should be ascending or descending.
+     * @param input      the {@link InputDTO} containing the array to be sorted and sorting strategies.
+     * @param order      the {@link Order} specifying whether the sorting should be ascending or descending.
      * @param iterations the maximum number of iterations allowed for the sorting process.
      * @return a {@link ResponseEntity} containing the sorted array and performance metrics.
      * @throws IllegalArgumentException if the input array is empty, strategies are not specified, or iterations are invalid.
      */
 
-    @GetMapping(value = GET + ARRAY + ORDER  + ITERATIONS)
+    @GetMapping(value = GET + ARRAY + ORDER + ITERATIONS)
     public ResponseEntity<Object> getSortedArray(@RequestBody InputDTO input,
                                                  @PathVariable("order") Order order,
                                                  @PathVariable("iterations") int iterations,
@@ -161,10 +161,12 @@ public class Controller {
         }
 
         validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
-        ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(), input.getStrategyTypes(), order, iterations));
+        ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(), input.getStrategyTypes(), order));
         logger.info("Sorting completed successfully.");
         return response;
     }
+
+
 
     /**
      * Handles HTTP GET requests for sorting an array with a specified order without a limit on iterations.
@@ -227,4 +229,75 @@ public class Controller {
         logger.info("Sorting completed successfully.");
         return response;
     }
+
+    //timelimit
+    @GetMapping(value = GET + ARRAY + ORDER + ITERATIONS+ "/TIMELIMIT")
+    public ResponseEntity<Object> getSortedArray(@RequestBody InputDTO input,
+                                                 @PathVariable("order") Order order,
+                                                 @PathVariable("iterations") int iterations,
+                                                 @RequestParam("timeLimit") Optional<Long> timeLimit,
+                                                 @RequestParam("generateData") Optional<Boolean> generateData) {
+
+        logger.info("Received request for sorting an integer array with order {}, iterations {}, and time limit {} ms",
+                order, iterations, timeLimit.orElse(-1L));
+
+        if (generateData.isPresent() && generateData.get()) {
+            logger.info("Generating random data for input array.");
+            input.setNumbers(dataGenerator.generateRandomIntArray());
+        }
+        validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
+
+        long timeLimitNano = timeLimit.orElse(-1L);
+        ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(),
+                input.getStrategyTypes(), order, iterations, timeLimitNano));
+        logger.info("Sorting completed successfully.");
+        return response;
+    }
+
+    @GetMapping(value = GET + ARRAY + STRING + ORDER + ITERATIONS+ "/TIMELIMIT")
+    public ResponseEntity<Object> getSortedArray(@RequestBody InputStringDTO input,
+                                                       @PathVariable("order") Order order,
+                                                       @PathVariable("iterations") int iterations,
+                                                       @RequestParam("timeLimit") Optional<Long> timeLimit,
+                                                       @RequestParam("generateData") Optional<Boolean> generateData) {
+
+        logger.info("Received request for sorting a string array with order {}, iterations {}, and time limit {} ms",
+                order, iterations, timeLimit.orElse(-1L));
+
+        if (generateData.isPresent() && generateData.get()) {
+            logger.info("Generating random data for input array.");
+            input.setNumbers(dataGenerator.generateRandomStringArray());
+        }
+        validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
+
+        long timeLimitNano = timeLimit.orElse(-1L);
+        ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(),
+                input.getStrategyTypes(), order, iterations, timeLimitNano));
+        logger.info("Sorting completed successfully.");
+        return response;
+    }
+
+    @GetMapping(value = GET + ARRAY + FLOAT + ORDER + ITERATIONS+ "/TIMELIMIT")
+    public ResponseEntity<Object> getSortedArray(@RequestBody InputFloatDTO input,
+                                                      @PathVariable("order") Order order,
+                                                      @PathVariable("iterations") int iterations,
+                                                      @RequestParam("timeLimit") Optional<Long> timeLimit,
+                                                      @RequestParam("generateData") Optional<Boolean> generateData) {
+
+        logger.info("Received request for sorting a float array with order {}, iterations {}, and time limit {} ms",
+                order, iterations, timeLimit.orElse(-1L));
+
+        if (generateData.isPresent() && generateData.get()) {
+            logger.info("Generating random data for input array.");
+            input.setNumbers(dataGenerator.generateRandomFloatArray());
+        }
+        validator.validateEndpointInput(iterations, input.getNumbers(), input.getStrategyTypes());
+
+        long timeLimitNano = timeLimit.orElse(-1L);
+        ResponseEntity<Object> response = ResponseEntity.ok(context.handleContext(input.getNumbers(),
+                input.getStrategyTypes(), order, iterations, timeLimitNano));
+        logger.info("Sorting completed successfully.");
+        return response;
+    }
+
 }
