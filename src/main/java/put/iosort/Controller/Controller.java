@@ -39,27 +39,27 @@ import java.util.Optional;
  *
  * <p>Methods:</p>
  * <ul>
- *      <li>{@link #getSortedArray(InputDTO, Order, int,Optional)}:
+ *      <li>{@link #getSortedArray(InputDTO, Order, int, Optional)}:
  *           Sorts an array (of integers) with a specified order and a maximum number of iterations.
  *           Mapped to: {@code GET /IOS/api/get/array/{order}/{iterations}}
  *       </li>
- *       <li>{@link #getSortedArray(InputFloatDTO, Order, int,Optional)}:
+ *       <li>{@link #getSortedArray(InputFloatDTO, Order, int, Optional)}:
  *           Sorts an array (of floats) with a specified order and a maximum number of iterations.
  *           Mapped to: {@code GET /IOS/api/get/array/float/{order}/{iterations}}
  *       </li>
- *       <li>{@link #getSortedArray(InputStringDTO, Order, int,Optional)}:
+ *       <li>{@link #getSortedArray(InputStringDTO, Order, int, Optional)}:
  *           Sorts an array (of strings) with a specified order and a maximum number of iterations.
  *           Mapped to: {@code GET /IOS/api/get/array/string/{order}/{iterations}}
  *       </li>
- *       <li>{@link #getSortedArray(InputDTO, Order,Optional)}:
+ *       <li>{@link #getSortedArray(InputDTO, Order, Optional)}:
  *           Sorts an array (of integers) with a specified order without a limit on iterations.
  *           Mapped to: {@code GET /IOS/api/get/array/{order}}
  *       </li>
- *       <li>{@link #getSortedArray(InputFloatDTO, Order,Optional)}:
+ *       <li>{@link #getSortedArray(InputFloatDTO, Order, Optional)}:
  *           Sorts an array (of floats) with a specified order without a limit on iterations.
  *           Mapped to: {@code GET /IOS/api/get/array/float/{order}}
  *       </li>
- *       <li>{@link #getSortedArray(InputStringDTO, Order,Optional)}:
+ *       <li>{@link #getSortedArray(InputStringDTO, Order, Optional)}:
  *           Sorts an array (of strings) with a specified order without a limit on iterations.
  *           Mapped to: {@code GET /IOS/api/get/array/string/{order}}
  *       </li>

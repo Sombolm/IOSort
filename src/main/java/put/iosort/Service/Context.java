@@ -11,10 +11,13 @@ import put.iosort.Entity.SortingResult.SortingResultString;
 import put.iosort.Service.Factory.StrategyFactory;
 import put.iosort.Service.Strategy.Strategy;
 import put.iosort.Service.Strategy.StrategyType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 
 /**
@@ -82,6 +85,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for int array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -105,6 +111,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for int array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -130,6 +139,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for float array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -153,6 +165,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for float array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -178,6 +193,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for string array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -222,12 +240,16 @@ public class Context {
             long duration = (end - start);
 
             SortingResultString sortingResult = new SortingResultString(stringsResult, duration, strategyType);
+
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
         }
 
-        logger.info("Sorting process completed for String array.");
+        logger.info("Sorting process completed for string array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -254,6 +276,31 @@ public class Context {
         logger.info("Sorting process completed for float array.");
         return sortingResults;
     }
+      
+    public void runPythonScript() {
+        try {
+            // Define the command to execute the Python script
+            ProcessBuilder processBuilder = new ProcessBuilder("python", "python/generate_histogram.py");
+            processBuilder.directory(new File(System.getProperty("user.dir"))); // Set the working directory
+            Process process = processBuilder.start();
+            int exitCode = process.waitFor(); // Wait for the script to complete
+            if (exitCode == 0) {
+                System.out.println("Python script executed successfully.");
+            } else {
+                System.err.println("Python script failed with exit code: " + exitCode);
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
-
+    public <T> void saveResultsAsJson(List<T> results, String fileName) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(new File(fileName), results);
+            logger.info("Results saved to file: {}", fileName);
+        } catch (IOException e) {
+            logger.error("Error while saving results to JSON file", e);
+        }
+    }
 }
