@@ -35,6 +35,9 @@ import java.util.Optional;
  *     <li>{@code GET /IOS/api/get/array/{order}}:
  *         Handles requests to sort an array with a specific order without specifying iterations.
  *     </li>
+ *     <li>{@code GET /IOS/api/get/array/{order}/{iterations}/TIMELIMIT}:
+ *         Handles requests to sort an array with a specific order, a number of iterations, and a time limit.
+ *     </li>
  * </ul>
  *
  * <p>Methods:</p>
@@ -63,6 +66,18 @@ import java.util.Optional;
  *           Sorts an array (of strings) with a specified order without a limit on iterations.
  *           Mapped to: {@code GET /IOS/api/get/array/string/{order}}
  *       </li>
+ *       <li>{@link #getSortedArray(InputDTO, Order, int, Optional, Optional)}:
+ *             Sorts an array (of integers) with a specified order, maximum number of iterations and time limit.
+ *            Mapped to: {@code GET /IOS/api/get/array/{order}/{iterations}}
+ *         </li>
+ *         <li>{@link #getSortedArray(InputFloatDTO, Order, int, Optional, Optional)}:
+ *             Sorts an array (of floats) with a specified order, maximum number of iterations and time limit.
+ *             Mapped to: {@code GET /IOS/api/get/array/float/{order}/{iterations}}
+ *         </li>
+ *         <li>{@link #getSortedArray(InputStringDTO, Order, int, Optional, Optional)}:
+ *             Sorts an array (of strings) with a specified order, maximum number of iterations and time limit.
+ *             Mapped to: {@code GET /IOS/api/get/array/string/{order}/{iterations}}
+ *         </li>
  * </ul>
  *
  * <p>Validation:</p>
@@ -104,6 +119,8 @@ public class Controller {
      * @param input      the {@link InputDTO} containing the array to be sorted and sorting strategies.
      * @param order      the {@link Order} specifying whether the sorting should be ascending or descending.
      * @param iterations the maximum number of iterations allowed for the sorting process.
+     * @param generateData an optional {@link Boolean} flag indicating whether to generate random data for the input array.
+     *                     If true, a new random array will be generated and used for sorting.
      * @return a {@link ResponseEntity} containing the sorted array and performance metrics.
      * @throws IllegalArgumentException if the input array is empty, strategies are not specified, or iterations are invalid.
      */
@@ -173,6 +190,8 @@ public class Controller {
      *
      * @param input the {@link InputDTO} containing the array to be sorted and sorting strategies.
      * @param order the {@link Order} specifying whether the sorting should be ascending or descending.
+     * @param generateData an optional {@link Boolean} flag indicating whether to generate random data for the input array.
+     *                      If true, a new random array will be generated and used for sorting.
      * @return a {@link ResponseEntity} containing the sorted array and performance metrics.
      * @throws IllegalArgumentException if the input array is empty or strategies are not specified.
      */
@@ -230,6 +249,18 @@ public class Controller {
         return response;
     }
 
+    /**
+     * Handles HTTP GET requests for sorting an array with a specified order and a limited number of iterations.
+     *
+     * @param input      the {@link InputDTO} containing the array to be sorted and sorting strategies.
+     * @param order      the {@link Order} specifying whether the sorting should be ascending or descending.
+     * @param iterations the maximum number of iterations allowed for the sorting process.
+     * @param timeLimit an optional {@link Long} flag indicating whether to set time limit for sorting.
+     * @param generateData an optional {@link Boolean} flag indicating whether to generate random data for the input array.
+     *                     If true, a new random array will be generated and used for sorting.
+     * @return a {@link ResponseEntity} containing the sorted array and performance metrics.
+     * @throws IllegalArgumentException if the input array is empty, strategies are not specified, or iterations are invalid.
+     */
     //timelimit
     @GetMapping(value = GET + ARRAY + ORDER + ITERATIONS+ "/TIMELIMIT")
     public ResponseEntity<Object> getSortedArray(@RequestBody InputDTO input,
