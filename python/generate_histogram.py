@@ -35,7 +35,7 @@ def generate_histogram():
 
         plt.savefig(OUTPUT_IMAGE_PATH)
         print(f"Histogram saved to: {OUTPUT_IMAGE_PATH}")
-        plt.show()
+        # plt.show()
 
     except FileNotFoundError:
         print(f"Error: JSON file not found at {JSON_FILE_PATH}")

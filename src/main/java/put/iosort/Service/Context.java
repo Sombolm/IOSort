@@ -199,6 +199,32 @@ public class Context {
         return sortingResults;
     }
 
+    public List<SortingResultString> handleContext(String[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
+        List<SortingResultString> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for string array with {} strategies and {} iterations", strategyTypes.length, iterations);
+
+        for (StrategyType strategyType : strategyTypes) {
+            logger.debug("Applying strategy: {}", strategyType);
+
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            long start = System.nanoTime();
+            String[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order, iterations);
+            long end = System.nanoTime();
+            long duration = end - start;
+
+            SortingResultString sortingResult = new SortingResultString(numbersResult, duration, strategyType);
+            sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
+        }
+
+        logger.info("Sorting process completed for string array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
+        return sortingResults;
+    }
+
     //timelimit
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
         List<SortingResult> sortingResults = new ArrayList<>();
@@ -222,6 +248,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for int array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
@@ -274,6 +303,9 @@ public class Context {
         }
 
         logger.info("Sorting process completed for float array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
       
