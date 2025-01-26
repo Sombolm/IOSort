@@ -14,7 +14,7 @@ public class InsertionSortTest {
     private InsertionSort insertionSort;
 
     @Test
-    public void testSortIntArrayAscending() {
+    public void testInsertionSortIntArrayAscending() {
         int[] input = {5, 3, 8, 1};
         int[] expected = {1, 3, 5, 8};
 
@@ -24,7 +24,7 @@ public class InsertionSortTest {
     }
 
     @Test
-    public void testSortIntArrayDescending() {
+    public void testInsertionSortIntArrayDescending() {
         int[] input = {5, 3, 8, 1};
         int[] expected = {8, 5, 3, 1};
 
@@ -34,7 +34,7 @@ public class InsertionSortTest {
     }
 
     @Test
-    public void testSortIntArrayWithIterations() {
+    public void testInsertionSortIntArrayWithIterationsAscending() {
         int[] input = {5, 3, 8, 1};
         int[] expected = {3, 5, 8, 1};
 
@@ -44,7 +44,7 @@ public class InsertionSortTest {
     }
 
     @Test
-    public void testSortFloatArrayAscending() {
+    public void testInsertionSortFloatArrayAscending() {
         float[] input = {5.5f, 3.3f, 8.8f, 1.1f};
         float[] expected = {1.1f, 3.3f, 5.5f, 8.8f};
 
@@ -54,7 +54,7 @@ public class InsertionSortTest {
     }
 
     @Test
-    public void testSortFloatArrayDescending() {
+    public void testInsertionSortFloatArrayDescending() {
         float[] input = {5.5f, 3.3f, 8.8f, 1.1f};
         float[] expected = {8.8f, 5.5f, 3.3f, 1.1f};
 
@@ -64,7 +64,7 @@ public class InsertionSortTest {
     }
 
     @Test
-    public void testSortFloatArrayWithIterations() {
+    public void testInsertionSortFloatArrayWithIterationsAscending() {
         float[] input = {5.5f, 3.3f, 8.8f, 1.1f};
         float[] expected = {3.3f, 5.5f, 8.8f, 1.1f};
 
@@ -74,7 +74,7 @@ public class InsertionSortTest {
     }
 
     @Test
-    public void testSortStringArrayAscending() {
+    public void testInsertionSortStringArrayAscending() {
         String[] input = {"banana", "apple", "cherry", "date"};
         String[] expected = {"apple", "banana", "cherry", "date"};
 
@@ -84,7 +84,7 @@ public class InsertionSortTest {
     }
 
     @Test
-    public void testSortStringArrayDescending() {
+    public void testInsertionSortStringArrayDescending() {
         String[] input = {"banana", "apple", "cherry", "date"};
         String[] expected = {"date", "cherry", "banana", "apple"};
 
@@ -94,7 +94,7 @@ public class InsertionSortTest {
     }
 
     @Test
-    public void testSortStringArrayWithIterations() {
+    public void testInsertionSortStringArrayWithIterationsAscending() {
         String[] input = {"banana", "apple", "cherry", "date"};
         String[] expected = {"apple", "banana", "cherry", "date"};
 

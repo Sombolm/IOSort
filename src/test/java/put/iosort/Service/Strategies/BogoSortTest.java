@@ -9,113 +9,59 @@ class BogoSortTest {
     private final BogoSort bogoSort = new BogoSort();
 
     @Test
-    void testSortUntilFinishedAscending() {
-        int[] array = {3, 2, 1};
-        int[] sortedArray = bogoSort.sort(array, Order.ASC, -1);
+    void testBogoSortIntArrayAscending() {
+        int[] input = {5, 2, 9, 1, 5, 6};
+        int[] expected = {1, 2, 5, 5, 6, 9};
 
-        assertTrue(isSorted(sortedArray, Order.ASC));
+        int[] result = bogoSort.sort(input, Order.ASC);
+
+        assertArrayEquals(expected, result);
     }
 
     @Test
-    void testSortUntilFinishedDescending() {
-        int[] array = {1, 2, 3};
-        int[] sortedArray = bogoSort.sort(array, Order.DESC, -1);
-
-        assertTrue(isSorted(sortedArray, Order.DESC));
-    }
-
-    private boolean isSorted(int[] array, Order order) {
-        for (int i = 0; i < array.length - 1; i++) {
-            if ((order == Order.ASC && array[i] > array[i + 1]) ||
-                    (order == Order.DESC && array[i] < array[i + 1])) {
-                return false;
-            }
-        }
-        return true;
-    }
+    void testBogoSortIntArrayDescending() {
+        int[] input = {5, 2, 9, 1, 5, 6};
+        int[] expected = {9, 6, 5, 5, 2, 1};
 
 
-    @Test
-    void testSortFloatArrayWithIterationsAscending() {
-        float[] array = {3.3f, 2.2f, 1.1f};
-        float[] sortedArray = bogoSort.sort(array, Order.ASC, 1000);
+        int[] result = bogoSort.sort(input, Order.DESC);
 
-        assertTrue(isSorted(sortedArray, Order.ASC));
+        assertArrayEquals(expected, result);
     }
 
     @Test
-    void testSortFloatArrayWithIterationsDescending() {
-        float[] array = {1.1f, 2.2f, 3.3f};
-        float[] sortedArray = bogoSort.sort(array, Order.DESC, 1000);
+    void testBogoSortFloatArrayAscending() {
+        float[] input = {5.3f, 2.1f, 9.6f, 1.2f};
+        float[] expected = {1.2f, 2.1f, 5.3f, 9.6f};
 
-        assertTrue(isSorted(sortedArray, Order.DESC));
+        float[] result = bogoSort.sort(input, Order.ASC);
+        assertArrayEquals(expected, result);
     }
 
     @Test
-    void testSortFloatArrayWithoutIterationsAscending() {
-        float[] array = {3.3f, 2.2f, 1.1f};
-        float[] sortedArray = bogoSort.sort(array, Order.ASC);
+    void testBogoSortFloatArrayDescending() {
+        float[] input = {5.3f, 2.1f, 9.6f, 1.2f};
+        float[] expected = {9.6f, 5.3f, 2.1f, 1.2f};
 
-        assertTrue(isSorted(sortedArray, Order.ASC));
+        float[] result = bogoSort.sort(input, Order.DESC);
+        assertArrayEquals(expected, result);
     }
 
     @Test
-    void testSortFloatArrayWithoutIterationsDescending() {
-        float[] array = {1.1f, 2.2f, 3.3f};
-        float[] sortedArray = bogoSort.sort(array, Order.DESC);
+    void testbogoSortStringArrayAscending() {
+        String[] input = {"apple", "orange", "banana", "pear"};
+        String[] expected = {"apple", "banana", "orange", "pear"};
 
-        assertTrue(isSorted(sortedArray, Order.DESC));
+        String[] result = bogoSort.sort(input, Order.ASC);
+        assertArrayEquals(expected, result);
     }
 
     @Test
-    void testSortStringArrayWithIterationsAscending() {
-        String[] array = {"c", "b", "a"};
-        String[] sortedArray = bogoSort.sort(array, Order.ASC, 1000);
+    void testBogoSortStringArrayDescending() {
+        String[] input = {"apple", "orange", "banana", "pear"};
+        String[] expected = {"pear", "orange", "banana", "apple"};
 
-        assertTrue(isSorted(sortedArray, Order.ASC));
-    }
-
-    @Test
-    void testSortStringArrayWithIterationsDescending() {
-        String[] array = {"a", "b", "c"};
-        String[] sortedArray = bogoSort.sort(array, Order.DESC, 1000);
-
-        assertTrue(isSorted(sortedArray, Order.DESC));
-    }
-
-    @Test
-    void testSortStringArrayWithoutIterationsAscending() {
-        String[] array = {"c", "b", "a"};
-        String[] sortedArray = bogoSort.sort(array, Order.ASC);
-
-        assertTrue(isSorted(sortedArray, Order.ASC));
-    }
-
-    @Test
-    void testSortStringArrayWithoutIterationsDescending() {
-        String[] array = {"a", "b", "c"};
-        String[] sortedArray = bogoSort.sort(array, Order.DESC);
-
-        assertTrue(isSorted(sortedArray, Order.DESC));
-    }
-
-    private boolean isSorted(float[] array, Order order) {
-        for (int i = 0; i < array.length - 1; i++) {
-            if ((order == Order.ASC && array[i] > array[i + 1]) ||
-                    (order == Order.DESC && array[i] < array[i + 1])) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean isSorted(String[] array, Order order) {
-        for (int i = 0; i < array.length - 1; i++) {
-            if ((order == Order.ASC && array[i].compareTo(array[i + 1]) > 0) ||
-                    (order == Order.DESC && array[i].compareTo(array[i + 1]) < 0)) {
-                return false;
-            }
-        }
-        return true;
+        String[] result = bogoSort.sort(input, Order.DESC);
+        assertArrayEquals(expected, result);
     }
 }

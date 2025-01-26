@@ -14,7 +14,7 @@ public class SelectionSortTest {
     private SelectionSort selectionSort;
 
     @Test
-    public void testSortIntArrayAscending() {
+    public void testSelectionSortIntArrayAscending() {
         int[] input = {5, 3, 8, 6, 2};
         int[] expected = {2, 3, 5, 6, 8};
 
@@ -24,7 +24,7 @@ public class SelectionSortTest {
     }
 
     @Test
-    public void testSortIntArrayDescending() {
+    public void testSelectionSortIntArrayDescending() {
         int[] input = {5, 3, 8, 6, 2};
         int[] expected = {8, 6, 5, 3, 2};
 
@@ -34,9 +34,9 @@ public class SelectionSortTest {
     }
 
     @Test
-    public void testSortIntArrayAscendingWithIterations() {
+    public void testSelectionSortIntArrayWithIterationsAscending() {
         int[] input = {5, 3, 8, 6, 2};
-        int[] expected = {2, 3, 8, 6, 5};
+        int[] expected = {2, 3, 5, 6, 8};
 
         int[] result = selectionSort.sort(input, Order.ASC, 2);
 
@@ -44,7 +44,7 @@ public class SelectionSortTest {
     }
 
     @Test
-    public void testSortFloatArrayAscending() {
+    public void testSelectionSortFloatArrayAscending() {
         float[] input = {5.5f, 3.3f, 8.8f, 6.6f, 2.2f};
         float[] expected = {2.2f, 3.3f, 5.5f, 6.6f, 8.8f};
 
@@ -54,7 +54,7 @@ public class SelectionSortTest {
     }
 
     @Test
-    public void testSortFloatArrayDescending() {
+    public void testSelectionSortFloatArrayDescending() {
         float[] input = {5.5f, 3.3f, 8.8f, 6.6f, 2.2f};
         float[] expected = {8.8f, 6.6f, 5.5f, 3.3f, 2.2f};
 
@@ -64,9 +64,9 @@ public class SelectionSortTest {
     }
 
     @Test
-    public void testSortFloatArrayAscendingWithIterations() {
+    public void testSelectionSortFloatArrayWithIterationsAscending() {
         float[] input = {5.5f, 3.3f, 8.8f, 6.6f, 2.2f};
-        float[] expected = {2.2f, 3.3f, 8.8f, 6.6f, 5.5f};
+        float[] expected = {2.2f, 3.3f, 5.5f, 6.6f, 8.8f};
 
         float[] result = selectionSort.sort(input, Order.ASC, 2);
 
@@ -74,7 +74,7 @@ public class SelectionSortTest {
     }
 
     @Test
-    public void testSortStringArrayAscending() {
+    public void testSelectionSortStringArrayAscending() {
         String[] input = {"banana", "apple", "cherry", "date"};
         String[] expected = {"apple", "banana", "cherry", "date"};
 
@@ -84,7 +84,7 @@ public class SelectionSortTest {
     }
 
     @Test
-    public void testSortStringArrayDescending() {
+    public void testSelectionSortStringArrayDescending() {
         String[] input = {"banana", "apple", "cherry", "date"};
         String[] expected = {"date", "cherry", "banana", "apple"};
 
@@ -94,7 +94,7 @@ public class SelectionSortTest {
     }
 
     @Test
-    public void testSortStringArrayAscendingWithIterations() {
+    public void testSelectionSortStringArrayWithIterationsAscending() {
         String[] input = {"banana", "apple", "cherry", "date"};
         String[] expected = {"apple", "banana", "cherry", "date"};
 

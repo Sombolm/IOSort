@@ -14,7 +14,7 @@ class BubbleSortTest {
     private BubbleSort bubbleSort;
 
     @Test
-    void testSortIntArrayAscending() {
+    void testBubbleSortIntArrayAscending() {
         int[] input = {5, 2, 9, 1, 5, 6};
         int[] expected = {1, 2, 5, 5, 6, 9};
 
@@ -23,7 +23,7 @@ class BubbleSortTest {
     }
 
     @Test
-    void testSortIntArrayDescending() {
+    void testBubbleSortIntArrayDescending() {
         int[] input = {5, 2, 9, 1, 5, 6};
         int[] expected = {9, 6, 5, 5, 2, 1};
 
@@ -32,16 +32,16 @@ class BubbleSortTest {
     }
 
     @Test
-    void testSortIntArrayWithIterationsAscending() {
+    void testBubbleSortIntArrayWithIterationsAscending() {
         int[] input = {5, 2, 9, 1, 5, 6};
-        int[] expected = {2, 5, 9, 1, 5, 6};
+        int[] expected = {2, 1, 5, 5, 6, 9};
 
         int[] result = bubbleSort.sort(input, Order.ASC, 2);
         assertArrayEquals(expected, result);
     }
 
     @Test
-    void testSortFloatArrayAscending() {
+    void testBubbleSortFloatArrayAscending() {
         float[] input = {5.3f, 2.1f, 9.6f, 1.2f};
         float[] expected = {1.2f, 2.1f, 5.3f, 9.6f};
 
@@ -50,7 +50,7 @@ class BubbleSortTest {
     }
 
     @Test
-    void testSortFloatArrayDescending() {
+    void testBubbleSortFloatArrayDescending() {
         float[] input = {5.3f, 2.1f, 9.6f, 1.2f};
         float[] expected = {9.6f, 5.3f, 2.1f, 1.2f};
 
@@ -59,16 +59,16 @@ class BubbleSortTest {
     }
 
     @Test
-    void testSortFloatArrayWithIterationsDescending() {
+    void testBubbleSortFloatArrayWithIterationsDescending() {
         float[] input = {5.3f, 2.1f, 9.6f, 1.2f};
-        float[] expected = {5.3f, 9.6f, 2.1f, 1.2f};
+        float[] expected = {9.6f, 5.3f, 2.1f, 1.2f};
 
         float[] result = bubbleSort.sort(input, Order.DESC, 2);
         assertArrayEquals(expected, result);
     }
 
     @Test
-    void testSortStringArrayAscending() {
+    void testBubbleSortStringArrayAscending() {
         String[] input = {"apple", "orange", "banana", "pear"};
         String[] expected = {"apple", "banana", "orange", "pear"};
 
@@ -77,7 +77,7 @@ class BubbleSortTest {
     }
 
     @Test
-    void testSortStringArrayDescending() {
+    void testBubbleSortStringArrayDescending() {
         String[] input = {"apple", "orange", "banana", "pear"};
         String[] expected = {"pear", "orange", "banana", "apple"};
 
@@ -86,7 +86,7 @@ class BubbleSortTest {
     }
 
     @Test
-    void testSortStringArrayWithIterationsAscending() {
+    void testBubbleSortStringArrayWithIterationsAscending() {
         String[] input = {"apple", "orange", "banana", "pear"};
         String[] expected = {"apple", "banana", "orange", "pear"};
 
