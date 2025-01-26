@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 /**
  * The {@code Context} class acts as a service layer responsible for orchestrating
  * the sorting of arrays based on the provided strategies and orders.
@@ -74,7 +75,7 @@ public class Context {
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResult sortingResult = new SortingResult(numbersResult, duration);
+            SortingResult sortingResult = new SortingResult(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -97,7 +98,7 @@ public class Context {
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResult sortingResult = new SortingResult(numbersResult, duration);
+            SortingResult sortingResult = new SortingResult(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -122,7 +123,7 @@ public class Context {
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration);
+            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -145,7 +146,7 @@ public class Context {
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration);
+            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -170,7 +171,7 @@ public class Context {
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultString sortingResult = new SortingResultString(numbersResult, duration);
+            SortingResultString sortingResult = new SortingResultString(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
@@ -196,7 +197,7 @@ public class Context {
             long duration = (end - start);
 
             // Tworzenie wyniku
-            SortingResult sortingResult = new SortingResult(numbersResult, duration);
+            SortingResult sortingResult = new SortingResult(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
@@ -220,7 +221,7 @@ public class Context {
             long end = System.nanoTime();
             long duration = (end - start);
 
-            SortingResultString sortingResult = new SortingResultString(stringsResult, duration);
+            SortingResultString sortingResult = new SortingResultString(stringsResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
@@ -244,7 +245,7 @@ public class Context {
             long end = System.nanoTime();
             long duration = (end - start);
 
-            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration);
+            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
