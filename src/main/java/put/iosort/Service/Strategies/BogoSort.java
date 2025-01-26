@@ -235,4 +235,102 @@ public class BogoSort implements Strategy {
     private boolean compare(String a, String b, Order order) {
         return order == Order.ASC ? a.compareTo(b) > 0 : a.compareTo(b) < 0;
     }
+
+
+    @Override
+    public int[] sortWithTimeLimit(int[] array, Order order, int iterations, long timeLimitNano) {
+        Random random = new Random();
+        logger.info("Starting BogoSort for int[] with order: {} and max iterations: {}", order, iterations);
+
+        long startTime = System.nanoTime();
+
+        while (iterations != 0) {
+            if (isSorted(array, order)) {
+                logger.info("Array is sorted after {} iterations.", iterations);
+                break;
+            }
+
+            // Shuffle the array randomly
+            for (int i = 0; i < array.length; i++) {
+                int randomIndex = random.nextInt(array.length);
+                int temp = array[i];
+                array[i] = array[randomIndex];
+                array[randomIndex] = temp;
+            }
+
+            iterations--;
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ms reached. Stopping sort.", timeLimitNano);
+                break;
+            }
+        }
+
+        return array;
+    }
+
+    @Override
+    public String[] sortWithTimeLimit(String[] array, Order order, int iterations, long timeLimitNano) {
+        Random random = new Random();
+        logger.info("Starting BogoSort for String[] with order: {} and max iterations: {}", order, iterations);
+
+        long startTime = System.nanoTime();
+
+        while (iterations != 0) {
+            if (isSorted(array, order)) {
+                logger.info("Array is sorted after {} iterations.", iterations);
+                break;
+            }
+
+            // Shuffle the array randomly
+            for (int i = 0; i < array.length; i++) {
+                int randomIndex = random.nextInt(array.length);
+                String temp = array[i];
+                array[i] = array[randomIndex];
+                array[randomIndex] = temp;
+            }
+
+            iterations--;
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ms reached. Stopping sort.", timeLimitNano);
+                break;
+            }
+        }
+
+        return array;
+    }
+
+    @Override
+    public float[] sortWithTimeLimit(float[] array, Order order, int iterations, long timeLimitNano) {
+        Random random = new Random();
+        logger.info("Starting BogoSort for float[] with order: {} and max iterations: {}", order, iterations);
+
+        long startTime = System.nanoTime();
+
+        while (iterations != 0) {
+            if (isSorted(array, order)) {
+                logger.info("Array is sorted after {} iterations.", iterations);
+                break;
+            }
+
+            // Shuffle the array randomly
+            for (int i = 0; i < array.length; i++) {
+                int randomIndex = random.nextInt(array.length);
+                float temp = array[i];
+                array[i] = array[randomIndex];
+                array[randomIndex] = temp;
+            }
+
+            iterations--;
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ms reached. Stopping sort.", timeLimitNano);
+                break;
+            }
+        }
+
+        return array;
+    }
+
 }

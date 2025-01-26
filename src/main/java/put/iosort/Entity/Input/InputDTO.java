@@ -35,4 +35,7 @@ public class InputDTO {
         return strategyTypes;
     }
 
+    public void setNumbers(int[] ints) {
+        this.numbers = ints;
+    }
 }

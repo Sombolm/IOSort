@@ -16,7 +16,6 @@ public class IoSortApplication {
         SpringApplication.run(IoSortApplication.class, args);
 
         logger.info("Aplikacja IoSort została uruchomiona.");
-
         if (logger.isDebugEnabled()) {
             logger.debug("Tryb DEBUG jest włączony. Szczegółowe logi zostaną wyświetlone.");
         }

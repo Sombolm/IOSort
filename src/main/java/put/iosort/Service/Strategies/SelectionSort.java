@@ -197,4 +197,112 @@ public class SelectionSort implements Strategy {
     private boolean compare(String a, String b, Order order) {
         return order == Order.ASC ? a.compareTo(b) < 0 : a.compareTo(b) > 0;
     }
+
+    @Override
+    public int[] sortWithTimeLimit(int[] array, Order order, int iterations, long timeLimitNano) {
+        int n = array.length;
+        logger.info("Starting Selection Sort for int array. Order: {}, Iterations: {}, Time Limit: {} ns", order, iterations, timeLimitNano);
+        long startTime = System.nanoTime();
+
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (compare(array[j], array[minIndex], order)) {
+                    minIndex = j;
+                }
+            }
+
+            // Swap
+            int temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+            logger.debug("Swapped elements at index {} and {}: {} <=> {}", i, minIndex, array[i], array[minIndex]);
+
+            if (i == iterations) {
+                logger.info("Reached specified iteration limit: {}. Stopping sort.", iterations);
+                break;
+            }
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ns reached. Stopping sort.", timeLimitNano);
+                break;
+            }
+        }
+
+        logger.info("Selection Sort completed for int array.");
+        return array;
+    }
+
+    @Override
+    public float[] sortWithTimeLimit(float[] array, Order order, int iterations, long timeLimitNano) {
+        int n = array.length;
+        logger.info("Starting Selection Sort for float array. Order: {}, Iterations: {}, Time Limit: {} ns", order, iterations, timeLimitNano);
+        long startTime = System.nanoTime();
+
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (compare(array[j], array[minIndex], order)) {
+                    minIndex = j;
+                }
+            }
+
+            // Swap
+            float temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+            logger.debug("Swapped elements at index {} and {}: {} <=> {}", i, minIndex, array[i], array[minIndex]);
+
+            if (i == iterations) {
+                logger.info("Reached specified iteration limit: {}. Stopping sort.", iterations);
+                break;
+            }
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ns reached. Stopping sort.", timeLimitNano);
+                break;
+            }
+        }
+
+        logger.info("Selection Sort completed for float array.");
+        return array;
+    }
+
+    @Override
+    public String[] sortWithTimeLimit(String[] array, Order order, int iterations, long timeLimitNano) {
+        int n = array.length;
+        logger.info("Starting Selection Sort for string array. Order: {}, Iterations: {}, Time Limit: {} ns", order, iterations, timeLimitNano);
+        long startTime = System.nanoTime();
+
+        for (int i = 0; i < n - 1; i++) {
+            int minIndex = i;
+
+            for (int j = i + 1; j < n; j++) {
+                if (compare(array[j], array[minIndex], order)) {
+                    minIndex = j;
+                }
+            }
+
+            // Swap
+            String temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+            logger.debug("Swapped elements at index {} and {}: '{}' <=> '{}'", i, minIndex, array[i], array[minIndex]);
+
+            if (i == iterations) {
+                logger.info("Reached specified iteration limit: {}. Stopping sort.", iterations);
+                break;
+            }
+
+            if (timeLimitNano > 0 && (System.nanoTime() - startTime) >= timeLimitNano) {
+                logger.info("Time limit of {} ns reached. Stopping sort.", timeLimitNano);
+                break;
+            }
+        }
+
+        logger.info("Selection Sort completed for string array.");
+        return array;
+    }
 }

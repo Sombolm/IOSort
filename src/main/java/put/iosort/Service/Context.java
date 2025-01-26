@@ -11,9 +11,14 @@ import put.iosort.Entity.SortingResult.SortingResultString;
 import put.iosort.Service.Factory.StrategyFactory;
 import put.iosort.Service.Strategy.Strategy;
 import put.iosort.Service.Strategy.StrategyType;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.io.File;
+import java.io.IOException;
+
 
 /**
  * The {@code Context} class acts as a service layer responsible for orchestrating
@@ -53,12 +58,26 @@ public class Context {
      */
     private final StrategyFactory strategyFactory;
 
+    /**
+     * Constructs a {@code Context} instance with the specified {@link StrategyFactory}.
+     *
+     * @param strategyFactory the factory used to create sorting strategies.
+     */
     public Context(StrategyFactory strategyFactory) {
         this.strategyFactory = strategyFactory;
     }
 
     //----------------FOR INT---------------------
 
+    /**
+     * Sorts an integer array using the specified strategies, order, and number of iterations.
+     *
+     * @param numbers       the integer array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResult> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for int array with {} strategies and {} iterations", strategyTypes.length, iterations);
@@ -68,20 +87,32 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order, iterations);
+
+            int[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order, iterations);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResult sortingResult = new SortingResult(numbers, duration);
+            SortingResult sortingResult = new SortingResult(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
         logger.info("Sorting process completed for int array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
+    /**
+     * Sorts an integer array using the specified strategies and order without iteration limits.
+     *
+     * @param numbers       the integer array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order) {
         List<SortingResult> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for int array with {} strategies", strategyTypes.length);
@@ -91,22 +122,34 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order);
+            int[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResult sortingResult = new SortingResult(numbers, duration);
+            SortingResult sortingResult = new SortingResult(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
         logger.info("Sorting process completed for int array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
     //----------------FOR FLOAT---------------------
 
+    /**
+     * Sorts a float array using the specified strategies, order, and number of iterations.
+     *
+     * @param numbers       the float array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @return a list of {@link SortingResultFloat} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultFloat> handleContext(float[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResultFloat> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for float array with {} strategies and {} iterations", strategyTypes.length, iterations);
@@ -116,20 +159,31 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order, iterations);
+            float[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order, iterations);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultFloat sortingResult = new SortingResultFloat(numbers, duration);
+            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
         logger.info("Sorting process completed for float array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
+    /**
+     * Sorts a float array using the specified strategies and order without iteration limits.
+     *
+     * @param numbers       the float array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @return a list of {@link SortingResultFloat} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultFloat> handleContext(float[] numbers, StrategyType[] strategyTypes, Order order) {
         List<SortingResultFloat> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for float array with {} strategies", strategyTypes.length);
@@ -139,22 +193,33 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order);
+            float[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultFloat sortingResult = new SortingResultFloat(numbers, duration);
+            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
         logger.info("Sorting process completed for float array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
     //----------------FOR STRING---------------------
 
+    /**
+     * Sorts a string array using the specified strategies and order without iteration limits.
+     *
+     * @param numbers       the string array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @return a list of {@link SortingResultString} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultString> handleContext(String[] numbers, StrategyType[] strategyTypes, Order order) {
         List<SortingResultString> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for string array with {} strategies", strategyTypes.length);
@@ -164,20 +229,32 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order);
+            String[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultString sortingResult = new SortingResultString(numbers, duration);
+            SortingResultString sortingResult = new SortingResultString(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
         logger.info("Sorting process completed for string array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
     }
 
+    /**
+     * Sorts a string array using the specified strategies, order, and number of iterations.
+     *
+     * @param numbers       the string array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @return a list of {@link SortingResultString} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultString> handleContext(String[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResultString> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for string array with {} strategies and {} iterations", strategyTypes.length, iterations);
@@ -187,17 +264,171 @@ public class Context {
 
             Strategy strategy = strategyFactory.makeStrategy(strategyType);
             long start = System.nanoTime();
-            numbers = strategy.sort(numbers, order, iterations);
+            String[] numbersResult = strategy.sort(Arrays.copyOf(numbers, numbers.length), order, iterations);
             long end = System.nanoTime();
             long duration = end - start;
 
-            SortingResultString sortingResult = new SortingResultString(numbers, duration);
+            SortingResultString sortingResult = new SortingResultString(numbersResult, duration, strategyType);
             sortingResults.add(sortingResult);
 
             logger.debug("Strategy {} completed in {} nanoseconds", strategyType, duration);
         }
 
         logger.info("Sorting process completed for string array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
         return sortingResults;
+    }
+
+    //timelimit
+    /**
+     * Sorts an integer array with a time limit and specified iterations.
+     *
+     * @param numbers       the integer array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @param timeLimitNano the time limit in nanoseconds for the sorting operation.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
+    public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
+        List<SortingResult> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for int array with {} strategies, {} iterations, and time limit {} ms",
+                strategyTypes.length, iterations, timeLimitNano);
+
+        for (StrategyType strategyType : strategyTypes) {
+            logger.debug("Applying strategy: {}", strategyType);
+
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            long start = System.nanoTime(); // Zmierz czas rozpoczęcia na poziomie strategii
+            int[] numbersResult = strategy.sortWithTimeLimit(Arrays.copyOf(numbers, numbers.length), order, iterations, timeLimitNano);
+            long end = System.nanoTime();   // Zmierz czas zakończenia
+            long duration = (end - start);
+
+            // Tworzenie wyniku
+            SortingResult sortingResult = new SortingResult(numbersResult, duration, strategyType);
+            sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
+        }
+
+        logger.info("Sorting process completed for int array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
+        return sortingResults;
+    }
+
+    /**
+     * Sorts a string array with a time limit and specified iterations.
+     *
+     * @param strings       the string array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @param timeLimitNano the time limit in nanoseconds for the sorting operation.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
+    public List<SortingResultString> handleContext(String[] strings, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
+        List<SortingResultString> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for String array with {} strategies, {} iterations, and time limit {} ms",
+                strategyTypes.length, iterations, timeLimitNano);
+
+        for (StrategyType strategyType : strategyTypes) {
+            logger.debug("Applying strategy: {}", strategyType);
+
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            long start = System.nanoTime();
+            String[] stringsResult = strategy.sortWithTimeLimit(Arrays.copyOf(strings, strings.length), order, iterations, timeLimitNano);
+            long end = System.nanoTime();
+            long duration = (end - start);
+
+            SortingResultString sortingResult = new SortingResultString(stringsResult, duration, strategyType);
+
+            sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
+        }
+
+        logger.info("Sorting process completed for string array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
+        return sortingResults;
+    }
+
+    /**
+     * Sorts a float array with a time limit and specified iterations.
+     *
+     * @param numbers       the float array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @param timeLimitNano the time limit in nanoseconds for the sorting operation.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
+    public List<SortingResultFloat> handleContext(float[] numbers, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
+        List<SortingResultFloat> sortingResults = new ArrayList<>();
+        logger.info("Sorting process started for float array with {} strategies, {} iterations, and time limit {} ms",
+                strategyTypes.length, iterations, timeLimitNano);
+
+        for (StrategyType strategyType : strategyTypes) {
+            logger.debug("Applying strategy: {}", strategyType);
+
+            Strategy strategy = strategyFactory.makeStrategy(strategyType);
+            long start = System.nanoTime();
+            float[] numbersResult = strategy.sortWithTimeLimit(Arrays.copyOf(numbers, numbers.length), order, iterations, timeLimitNano);
+            long end = System.nanoTime();
+            long duration = (end - start);
+
+            SortingResultFloat sortingResult = new SortingResultFloat(numbersResult, duration, strategyType);
+            sortingResults.add(sortingResult);
+
+            logger.debug("Strategy {} completed in {} milliseconds", strategyType, duration);
+        }
+
+        logger.info("Sorting process completed for float array.");
+
+        saveResultsAsJson(sortingResults, "python/sort_results.json");
+        runPythonScript();
+        return sortingResults;
+    }
+
+    /**
+     * Executes a Python script for further processing of sorting results.
+     */
+    public void runPythonScript() {
+        try {
+            // Define the command to execute the Python script
+            ProcessBuilder processBuilder = new ProcessBuilder("python", "python/generate_histogram.py");
+            processBuilder.directory(new File(System.getProperty("user.dir"))); // Set the working directory
+            Process process = processBuilder.start();
+            int exitCode = process.waitFor(); // Wait for the script to complete
+            if (exitCode == 0) {
+                System.out.println("Python script executed successfully.");
+            } else {
+                System.err.println("Python script failed with exit code: " + exitCode);
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Saves the sorting results as a JSON file.
+     *
+     * @param results  the list of results to be saved.
+     * @param fileName the file name where the results should be saved.
+     * @param <T>      the type of the sorting results (e.g., {@link SortingResult}, {@link SortingResultFloat}, etc.).
+     */
+    public <T> void saveResultsAsJson(List<T> results, String fileName) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(new File(fileName), results);
+            logger.info("Results saved to file: {}", fileName);
+        } catch (IOException e) {
+            logger.error("Error while saving results to JSON file", e);
+        }
     }
 }

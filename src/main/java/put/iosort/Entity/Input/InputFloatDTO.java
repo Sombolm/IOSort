@@ -44,4 +44,7 @@ public class InputFloatDTO {
         return strategyTypes;
     }
 
+    public void setNumbers(float[] floats) {
+        this.numbers = floats;
+    }
 }
