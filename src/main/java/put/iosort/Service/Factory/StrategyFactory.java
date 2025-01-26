@@ -40,8 +40,27 @@ import put.iosort.Service.Strategy.StrategyType;
 public class StrategyFactory {
 
     // Logger for this class
+    /** Logger instance for logging factory operations. */
     private static final Logger logger = LoggerFactory.getLogger(StrategyFactory.class);
 
+    /**
+     * Creates and returns an instance of the sorting strategy specified by the {@link StrategyType}.
+     *
+     * <p>The method uses a {@code switch} statement to determine the appropriate strategy implementation.</p>
+     *
+     * <p>Supported strategies:</p>
+     * <ul>
+     *     <li>{@code SELECTION}: {@link SelectionSort}</li>
+     *     <li>{@code BUBBLE}: {@link BubbleSort}</li>
+     *     <li>{@code INSERTION}: {@link InsertionSort}</li>
+     *     <li>{@code COUNTING}: {@link CountingSort}</li>
+     *     <li>{@code HEAP}: {@link HeapSort}</li>
+     *     <li>{@code BOGO}: {@link BogoSort}</li>
+     * </ul>
+     *
+     * @param strategyType the {@link StrategyType} representing the desired sorting algorithm.
+     * @return an instance of {@link Strategy} that implements the specified sorting algorithm.
+     */
     public Strategy makeStrategy(StrategyType strategyType) {
         // Log the strategy type that is being created
         logger.info("Creating strategy for type: {}", strategyType);
