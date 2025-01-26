@@ -58,12 +58,26 @@ public class Context {
      */
     private final StrategyFactory strategyFactory;
 
+    /**
+     * Constructs a {@code Context} instance with the specified {@link StrategyFactory}.
+     *
+     * @param strategyFactory the factory used to create sorting strategies.
+     */
     public Context(StrategyFactory strategyFactory) {
         this.strategyFactory = strategyFactory;
     }
 
     //----------------FOR INT---------------------
 
+    /**
+     * Sorts an integer array using the specified strategies, order, and number of iterations.
+     *
+     * @param numbers       the integer array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResult> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for int array with {} strategies and {} iterations", strategyTypes.length, iterations);
@@ -91,6 +105,14 @@ public class Context {
         return sortingResults;
     }
 
+    /**
+     * Sorts an integer array using the specified strategies and order without iteration limits.
+     *
+     * @param numbers       the integer array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order) {
         List<SortingResult> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for int array with {} strategies", strategyTypes.length);
@@ -119,6 +141,15 @@ public class Context {
 
     //----------------FOR FLOAT---------------------
 
+    /**
+     * Sorts a float array using the specified strategies, order, and number of iterations.
+     *
+     * @param numbers       the float array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @return a list of {@link SortingResultFloat} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultFloat> handleContext(float[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResultFloat> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for float array with {} strategies and {} iterations", strategyTypes.length, iterations);
@@ -145,6 +176,14 @@ public class Context {
         return sortingResults;
     }
 
+    /**
+     * Sorts a float array using the specified strategies and order without iteration limits.
+     *
+     * @param numbers       the float array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @return a list of {@link SortingResultFloat} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultFloat> handleContext(float[] numbers, StrategyType[] strategyTypes, Order order) {
         List<SortingResultFloat> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for float array with {} strategies", strategyTypes.length);
@@ -173,6 +212,14 @@ public class Context {
 
     //----------------FOR STRING---------------------
 
+    /**
+     * Sorts a string array using the specified strategies and order without iteration limits.
+     *
+     * @param numbers       the string array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @return a list of {@link SortingResultString} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultString> handleContext(String[] numbers, StrategyType[] strategyTypes, Order order) {
         List<SortingResultString> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for string array with {} strategies", strategyTypes.length);
@@ -199,6 +246,15 @@ public class Context {
         return sortingResults;
     }
 
+    /**
+     * Sorts a string array using the specified strategies, order, and number of iterations.
+     *
+     * @param numbers       the string array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @return a list of {@link SortingResultString} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultString> handleContext(String[] numbers, StrategyType[] strategyTypes, Order order, int iterations) {
         List<SortingResultString> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for string array with {} strategies and {} iterations", strategyTypes.length, iterations);
@@ -226,6 +282,16 @@ public class Context {
     }
 
     //timelimit
+    /**
+     * Sorts an integer array with a time limit and specified iterations.
+     *
+     * @param numbers       the integer array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @param timeLimitNano the time limit in nanoseconds for the sorting operation.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
     public List<SortingResult> handleContext(int[] numbers, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
         List<SortingResult> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for int array with {} strategies, {} iterations, and time limit {} ms",
@@ -254,6 +320,16 @@ public class Context {
         return sortingResults;
     }
 
+    /**
+     * Sorts a string array with a time limit and specified iterations.
+     *
+     * @param strings       the string array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @param timeLimitNano the time limit in nanoseconds for the sorting operation.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultString> handleContext(String[] strings, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
         List<SortingResultString> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for String array with {} strategies, {} iterations, and time limit {} ms",
@@ -282,6 +358,16 @@ public class Context {
         return sortingResults;
     }
 
+    /**
+     * Sorts a float array with a time limit and specified iterations.
+     *
+     * @param numbers       the float array to be sorted.
+     * @param strategyTypes the array of {@link StrategyType} defining the sorting strategies to be applied.
+     * @param order         the {@link Order} specifying ascending or descending order.
+     * @param iterations    the number of iterations to perform.
+     * @param timeLimitNano the time limit in nanoseconds for the sorting operation.
+     * @return a list of {@link SortingResult} containing sorted arrays and performance metrics.
+     */
     public List<SortingResultFloat> handleContext(float[] numbers, StrategyType[] strategyTypes, Order order, int iterations, long timeLimitNano) {
         List<SortingResultFloat> sortingResults = new ArrayList<>();
         logger.info("Sorting process started for float array with {} strategies, {} iterations, and time limit {} ms",
@@ -308,7 +394,10 @@ public class Context {
         runPythonScript();
         return sortingResults;
     }
-      
+
+    /**
+     * Executes a Python script for further processing of sorting results.
+     */
     public void runPythonScript() {
         try {
             // Define the command to execute the Python script
@@ -326,6 +415,13 @@ public class Context {
         }
     }
 
+    /**
+     * Saves the sorting results as a JSON file.
+     *
+     * @param results  the list of results to be saved.
+     * @param fileName the file name where the results should be saved.
+     * @param <T>      the type of the sorting results (e.g., {@link SortingResult}, {@link SortingResultFloat}, etc.).
+     */
     public <T> void saveResultsAsJson(List<T> results, String fileName) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {

@@ -38,7 +38,7 @@ import static put.iosort.Config.ErrorMessages.*;
  *
  * @author caprimol
  * @version 1.0
- * @since 2024-12-15
+ * @since 2025-01-27
  */
 
 @ControllerAdvice
@@ -47,6 +47,19 @@ public class GlobalExceptionHandler {
     // Logger instance
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    /**
+     * Handles exceptions caused by invalid path variables or method arguments.
+     *
+     * <p>This handler covers:</p>
+     * <ul>
+     *     <li>{@link MethodArgumentTypeMismatchException}: Raised when a path variable or request parameter
+     *         cannot be converted to the expected type.</li>
+     *     <li>{@link IllegalArgumentException}: Raised for generic argument validation failures.</li>
+     * </ul>
+     *
+     * @param ex the exception that triggered this handler.
+     * @return a {@link ResponseEntity} containing an error message and {@code 400 BAD_REQUEST} status.
+     */
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class, IllegalArgumentException.class })
     public ResponseEntity<Object> handlePathVariableMismatch(Exception ex) {
         logger.error("Handling exception: {} with message: {}", ex.getClass().getSimpleName(), ex.getMessage());
@@ -54,6 +67,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handles exceptions caused by invalid iteration values.
+     *
+     * <p>This handler specifically deals with:</p>
+     * <ul>
+     *     <li>{@link InvalidIterationsException}: Raised when the iteration count provided by the client is invalid.</li>
+     * </ul>
+     *
+     * @param ex the {@link InvalidIterationsException} that triggered this handler.
+     * @return a {@link ResponseEntity} containing the exception's message and {@code 400 BAD_REQUEST} status.
+     */
     @ExceptionHandler(InvalidIterationsException.class)
     public ResponseEntity<Object> handleInvalidIterations(InvalidIterationsException ex) {
         logger.error("Handling exception: {} with message: {}", ex.getClass().getSimpleName(), ex.getMessage());
@@ -61,6 +85,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Handles exceptions caused by request body or parameter validation failures.
+     *
+     * <p>This handler specifically deals with:</p>
+     * <ul>
+     *     <li>{@link ConstraintViolationException}: Raised when a request body or parameter fails validation constraints.</li>
+     * </ul>
+     *
+     * @param ex the {@link ConstraintViolationException} that triggered this handler.
+     * @return a {@link ResponseEntity} containing an error message and {@code 400 BAD_REQUEST} status.
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex) {
         logger.error("Handling exception: {} with message: {}", ex.getClass().getSimpleName(), ex.getMessage());
