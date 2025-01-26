@@ -46,6 +46,14 @@ public class CustomValidator {
 
     public CustomValidator(){}
 
+    /**
+     * Validates the input for endpoints that accept integer arrays.
+     *
+     * @param iterations    the maximum number of iterations (must be >= 0).
+     * @param array         the integer array to be sorted (cannot be empty).
+     * @param strategyTypes the array of sorting strategies to be applied (must contain 1-6 strategies).
+     * @throws IllegalArgumentException if any validation rule is violated.
+     */
     public void validateEndpointInput(int iterations, int[] array, StrategyType[] strategyTypes) {
         logger.info("Validating input: iterations = {}, array length = {}, strategy types count = {}", iterations, array.length, strategyTypes.length);
 
@@ -65,6 +73,14 @@ public class CustomValidator {
         logger.info("Validation passed for int array input.");
     }
 
+    /**
+     * Validates the input for endpoints that accept float arrays.
+     *
+     * @param iterations    the maximum number of iterations (must be >= 0).
+     * @param array         the float array to be sorted (cannot be empty).
+     * @param strategyTypes the array of sorting strategies to be applied (must contain 1-6 strategies).
+     * @throws IllegalArgumentException if any validation rule is violated.
+     */
     public void validateEndpointInput(int iterations, float[] array, StrategyType[] strategyTypes) {
         logger.info("Validating input: iterations = {}, array length = {}, strategy types count = {}", iterations, array.length, strategyTypes.length);
 
@@ -84,6 +100,14 @@ public class CustomValidator {
         logger.info("Validation passed for float array input.");
     }
 
+    /**
+     * Validates the input for endpoints that accept string arrays.
+     *
+     * @param iterations    the maximum number of iterations (must be >= 0).
+     * @param array         the string array to be sorted (cannot be empty).
+     * @param strategyTypes the array of sorting strategies to be applied (must contain 1-6 strategies).
+     * @throws IllegalArgumentException if any validation rule is violated.
+     */
     public void validateEndpointInput(int iterations, String[] array, StrategyType[] strategyTypes) {
         logger.info("Validating input: iterations = {}, array length = {}, strategy types count = {}", iterations, array.length, strategyTypes.length);
 
@@ -103,6 +127,13 @@ public class CustomValidator {
         logger.info("Validation passed for String array input.");
     }
 
+    /**
+     * Validates the input for endpoints with integer arrays and strategy types (no iterations).
+     *
+     * @param array         the integer array to be sorted (cannot be empty).
+     * @param strategyTypes the array of sorting strategies to be applied (must contain at least one strategy).
+     * @throws IllegalArgumentException if any validation rule is violated.
+     */
     public void validateEndpointInput(int[] array, StrategyType[] strategyTypes) {
         logger.info("Validating input: array length = {}, strategy types count = {}", array.length, strategyTypes.length);
 
@@ -118,6 +149,13 @@ public class CustomValidator {
         logger.info("Validation passed for int array input.");
     }
 
+    /**
+     * Validates the input for endpoints with float arrays and strategy types (no iterations).
+     *
+     * @param array         the float array to be sorted (cannot be empty).
+     * @param strategyTypes the array of sorting strategies to be applied (must contain at least one strategy).
+     * @throws IllegalArgumentException if any validation rule is violated.
+     */
     public void validateEndpointInput(float[] array, StrategyType[] strategyTypes) {
         logger.info("Validating input: array length = {}, strategy types count = {}", array.length, strategyTypes.length);
 
@@ -133,6 +171,13 @@ public class CustomValidator {
         logger.info("Validation passed for float array input.");
     }
 
+    /**
+     * Validates the input for endpoints with string arrays and strategy types (no iterations).
+     *
+     * @param array         the string array to be sorted (cannot be empty).
+     * @param strategyTypes the array of sorting strategies to be applied (must contain at least one strategy).
+     * @throws IllegalArgumentException if any validation rule is violated.
+     */
     public void validateEndpointInput(String[] array, StrategyType[] strategyTypes) {
         logger.info("Validating input: array length = {}, strategy types count = {}", array.length, strategyTypes.length);
 
